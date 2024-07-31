@@ -1,0 +1,745 @@
+
+Fault: 23-03-2024 20:16:27 - Отсутствует шаблон - core/admin/view/edit
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\controller\BaseController.php
+In line 167
+
+Fault: 25-03-2024 04:42:51 - Отсутствует шаблон - core/admin/view/edit
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\controller\BaseController.php
+In line 167
+
+Fault: 25-03-2024 05:10:45 - Отсутствует шаблон - core/admin/view/edit
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\controller\BaseController.php
+In line 167
+
+Fault: 25-03-2024 06:43:00 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:00 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:00 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:00 - Не верное имя файла для подключения - core/user/controller/IncludeController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:00 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:00 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:01 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:01 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:01 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:01 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:01 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:01 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:01 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:01 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:01 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:01 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:01 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:02 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:02 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:02 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:02 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:02 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:02 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:02 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:02 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:02 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:02 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:02 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:02 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:03 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:03 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:03 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:03 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:03 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:03 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:03 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:03 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:03 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:03 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:03 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:03 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:03 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:03 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:03 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:03 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:03 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:03 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:04 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:04 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:04 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:04 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:04 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:04 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:04 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:04 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:04 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:04 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:04 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:04 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:05 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:05 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:05 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:05 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:05 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:05 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:05 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:05 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:05 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:05 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:05 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:05 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:05 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:05 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:05 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:05 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:05 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:05 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:06 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:06 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:06 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:06 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:06 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:06 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:06 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:06 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:06 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:06 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:06 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:06 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:07 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:07 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:07 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:07 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:07 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:07 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:07 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:07 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:07 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:07 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:07 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:07 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:07 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:07 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:07 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:07 - Не верное имя файла для подключения - core/user/controller/IncludeController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:07 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:07 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:08 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:08 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:08 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:08 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:08 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:08 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:08 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:08 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:08 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:08 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:08 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:08 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:09 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:09 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:09 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:09 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:09 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:09 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:09 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:09 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:09 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:09 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:09 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:09 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:09 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:09 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:09 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:09 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:09 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:09 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:10 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:10 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:10 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:10 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:10 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:10 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:10 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:10 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:10 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:10 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:10 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:10 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:11 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:11 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:43:11 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:46:53 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:46:53 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:46:53 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:46:53 - Не верное имя файла для подключения - core/user/controller/IncludeController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:46:53 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:46:53 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:46:53 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:46:53 - Не верное имя файла для подключения - core/user/controller/UploadController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:46:53 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:46:53 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:46:53 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:46:54 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:46:54 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:46:54 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:46:54 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:46:54 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 06:46:54 - Не верное имя файла для подключения - core/user/controller/BitrixController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 25-03-2024 07:44:40 - Отсутствует шаблон - core/admin/view/createsitemap
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\controller\BaseController.php
+In line 167
+
+Fault: 25-03-2024 07:45:03 - Отсутствует шаблон - core/admin/view/createsitemap
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\controller\BaseController.php
+In line 167
+
+Fault: 25-03-2024 07:45:09 - Отсутствует шаблон - core/admin/view/createsitemap
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\controller\BaseController.php
+In line 167
+
+Fault: 25-03-2024 09:34:03 - Не верное имя файла для подключения - core/user/controller/AssetsController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 27-03-2024 18:29:10 - Не верное имя файла для подключения - core/user/controller/CoreController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 27-03-2024 18:29:10 - Не верное имя файла для подключения - core/user/controller/CoreController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 31-07-2024 11:27:34 - Не верное имя файла для подключения - core/user/controller/CoreController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 31-07-2024 11:27:34 - Не верное имя файла для подключения - core/user/controller/CoreController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 31-07-2024 11:27:38 - Не верное имя файла для подключения - core/user/controller/CoreController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 31-07-2024 11:27:38 - Не верное имя файла для подключения - core/user/controller/CoreController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 31-07-2024 11:27:40 - Не верное имя файла для подключения - core/user/controller/CoreController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 31-07-2024 11:27:40 - Не верное имя файла для подключения - core/user/controller/CoreController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 31-07-2024 11:27:43 - Не верное имя файла для подключения - core/user/controller/CoreController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
+Fault: 31-07-2024 11:27:43 - Не верное имя файла для подключения - core/user/controller/CoreController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
