@@ -6,3 +6,7 @@ Fault: 01-08-2024 15:37:30 - Не верное имя файла для подк
 file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
 In line 34
 
+Fault: 01-08-2024 17:02:18 - Не верное имя файла для подключения - core/user/controller/CoreController
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
+In line 34
+
