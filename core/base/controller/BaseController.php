@@ -106,7 +106,6 @@ abstract class BaseController
         extract($parameters);
 
         if (!$path) {
-
             $class = new \ReflectionClass($this);
             // заменяем слеши у пространства имён
             $space = str_replace('\\', '/', $class->getNamespaceName() . '\\');

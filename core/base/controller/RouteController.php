@@ -73,12 +73,12 @@ class RouteController extends BaseController
             /**
              * Продебажить этот код.
              * В поисковой строке передать параметры:
+             * Ключ - значение
              * im.my/news/color/red/id/4/text/good
              * im.my/news/title-news/last
              * посмотреть каждую переменную, что в нее записывается.
              */
             if (!empty($url[1])) {
-
                 $count = count($url);
                 $key = '';
 
@@ -90,22 +90,17 @@ class RouteController extends BaseController
                 }
 
                 for (; $i < $count; $i++) {
-
                     if (!$key) {
-
                         $key = $url[$i];
                         // параметры это адресная строка
                         $this->parameters[$key] = '';
                     } else {
-
                         $this->parameters[$key] = $url[$i];
-
                         $key = '';
                     }
                 }
             }
         } else {
-
             throw new RouteException('Некорректная директория сайта', 1);
         }
     }
@@ -117,23 +112,18 @@ class RouteController extends BaseController
         if (!empty($arr[0])) {
 
             if (!empty($this->routes[$var]['routes'][$arr[0]])) {
-
                 $route = explode('/', $this->routes[$var]['routes'][$arr[0]]);
-
                 $this->controller .= ucfirst($route[0] . 'Controller');
             } else {
-
                 $this->controller .= ucfirst($arr[0] . 'Controller');
             }
         } else {
-
             $this->controller .= $this->routes['default']['controller'];
         }
 
         $this->inputMethod = $route[1] ?? $this->routes['default']['inputMethod'];
-
         $this->outputMethod = $route[2] ?? $this->routes['default']['outputMethod'];
 
         return;
     }
-}
+} 

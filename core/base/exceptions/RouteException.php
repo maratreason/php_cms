@@ -19,7 +19,7 @@ class RouteException extends \Exception
         $error = $this->getMessage() ?: $this->messages[$this->getCode()];
         $error .= "\r\n" . 'file ' . $this->getFile() . "\r\n" . 'In line ' . $this->getLine() . "\r\n";
 
-        if ($this->messages[$this->getCode()]) $this->message = $this->messages[$this->getCode()];
+        // if ($this->messages[$this->getCode()]) $this->message = $this->messages[$this->getCode()];
 
         $this->writeLog($error);
     }
