@@ -2,6 +2,9 @@
 
 namespace core\base\model;
 
+/**
+ * Класс методов, которые строят запросы.
+ */
 abstract class BaseModelMethods
 {
     protected $sqlFunc = ['NOW()'];
@@ -277,11 +280,9 @@ abstract class BaseModelMethods
                 if (!$check_fields) $check_fields = true;
             }
         } else {
-
             $insert_arr['values'] = '(';
 
             if (!empty($fields)) {
-
                 foreach($fields as $row => $value) {
                     if (!empty($except) && in_array($row, $except)) continue;
 
@@ -295,11 +296,9 @@ abstract class BaseModelMethods
                         $insert_arr['values'] .= "'" . addslashes($value) . "',";
                     }
                 }
-
             }
 
             if (!empty($files)) {
-
                 foreach ($files as $row => $file) {
                     $insert_arr['fields'] .= $row . ',';
 
@@ -308,9 +307,7 @@ abstract class BaseModelMethods
                     } else {
                         $insert_arr['values'] .= "'" . addslashes($file) . "',";
                     }
-
                 }
-
             }
 
             $insert_arr['values'] = rtrim($insert_arr['values'], ',') . ')';

@@ -5,6 +5,9 @@ namespace core\base\model;
 use core\base\exceptions\DbException;
 use mysqli;
 
+/**
+ * Класс методов, которые работают с базой данных.
+ */
 abstract class BaseModel extends BaseModelMethods
 {
     protected $db;
@@ -186,7 +189,6 @@ abstract class BaseModel extends BaseModelMethods
             if (!empty($set['where'])) {
                 $where = $this->createWhere($set);
             } else {
-
                 $columns = $this->showColumns($table);
 
                 if (!$columns) return false;
