@@ -87,7 +87,7 @@ label.vg-element {
 
 .vg-element {
     display: flex;
-    padding: 0.20%;
+    padding: 0.35%;
 }
 
 .vg-full {
@@ -95,21 +95,8 @@ label.vg-element {
 }
 
 .vg-half {
-    flex-basis: 40.3%;
-    padding: 10px 0;
+    flex-basis: 49.3%;
 }
-
-/* My styles */
-
-.border-radius-10 {
-    border-radius: 5px;
-}
-
-.gap-20 {
-    gap: 20px;
-}
-
-/* End my styles */
 
 @media (max-width: 768px) {
     .vg-half,
@@ -295,17 +282,7 @@ label.vg-element {
 }
 
 .vg-box-shadow {
-    /* box-shadow: 0vw 2px 1px rgba(176, 190, 197, 0.5); */
-    box-shadow: 0px 2px 10px -8px rgba(0, 0, 0, 0.2);
-    transition: all 0.1s ease-in-out;
-}
-
-.vg-box-shadow:hover {
-    box-shadow: 0px 10px 20px -8px rgba(0, 0, 0, 0.2);
-}
-
-#searchButton div img {
-    margin-left: 20px;
+    box-shadow: 0vw 2px 1px rgba(176, 190, 197, 0.5);
 }
 
 #hideButton,

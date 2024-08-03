@@ -10,3 +10,7 @@ Fault: 01-08-2024 17:02:18 - Не верное имя файла для подк
 file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\settings\internal_settings.php
 In line 34
 
+Fault: 03-08-2024 15:15:40 - Отсутствует шаблон - core/admin/view/edit
+file G:\programs\OpenServer\domains\zzz.im-examin-3.ru\core\base\controller\BaseController.php
+In line 126
+

@@ -39,15 +39,11 @@ abstract class BaseAdmin extends BaseController
         $this->title = 'VG engine';
 
         if (!$this->model) $this->model = Model::instance();
-
         if (!$this->menu) $this->menu = Settings::get('projectTables');
         // Без PATH ссылка будет /admin/admin/teachers...
         if (!$this->adminPath) $this->adminPath = PATH . Settings::get('routes')['admin']['alias'] . '/';
-
         if (!$this->templateArr) $this->templateArr = Settings::get('templateArr');
-
         if (!$this->formTemplates) $this->formTemplates = Settings::get('formTemplates');
-
         if (!$this->messages) $this->messages = include $_SERVER['DOCUMENT_ROOT'] . PATH . Settings::get('messages') . 'informationMessages.php';
 
         $this->sendNoCacheHeaders();
@@ -56,14 +52,11 @@ abstract class BaseAdmin extends BaseController
     protected function outputData()
     {
         if (!$this->content) {
-
             $args = func_get_arg(0);
             $vars = $args ? $args : [];
 
             // if (!$this->template) $this->template = ADMIN_TEMPLATE . 'show';
-
             $this->content = $this->render($this->template, $vars);
-
         }
 
         $this->header = $this->render(ADMIN_TEMPLATE . 'include/header');

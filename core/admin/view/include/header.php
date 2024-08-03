@@ -13,21 +13,21 @@
 <body>
     <div class="vg-carcass vg-hide">
         <div class="vg-main">
-            <div class="vg-one-of-twenty vg-firm-background-color2  vg-center">
+            <div class="vg-one-of-twenty vg-firm-background-color2 vg-center">
                 <a href="<?=PATH?>" target="_blank">
                     <div class="vg-element vg-full">
-                        <span class="vg-text2 vg-firm-color1">Site</span>
+                        <span class="vg-text2 vg-firm-color1 color-white">Site</span>
                     </div>
                 </a>
             </div>
             <div class="vg-element vg-ninteen-of-twenty vg-firm-background-color4 vg-space-between  vg-box-shadow">
-                <div class="vg-element vg-third">
-                    <div class="vg-element vg-fifth vg-center" id="hideButton">
+                <div class="vg-element vg-third gap-20">
+                    <div class="vg-element vg-fifth vg-center border-radius-10" id="hideButton">
                         <div>
                             <img src="<?=PATH . ADMIN_TEMPLATE?>/img/menu-button.png" alt="">
                         </div>
                     </div>
-                    <div class="vg-element vg-wrap-size vg-left vg-search  vg-relative" id="searchButton">
+                    <div class="vg-element vg-wrap-size vg-left vg-search vg-relative border-radius-10" id="searchButton">
                         <div>
                             <img src="<?=PATH . ADMIN_TEMPLATE?>img/search.png" alt="">
                         </div>
@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <!--кнопка-->
-                <a href="<?=PATH . \core\base\settings\Settings::get('routes')['admin']['alias']?>/createsitemap" class="vg-element vg-box-shadow sitemap-button">
+                <a href="<?=PATH . \core\base\settings\Settings::get('routes')['admin']['alias']?>/createsitemap" class="vg-element vg-box-shadow sitemap-button border-radius-10">
                     <span class="vg-text vg-firm-color1">
                         Create sitemap
                     </span>
@@ -63,7 +63,7 @@
 
                 <?php if($this->menu): ?>
                     <?php foreach($this->menu as $table => $item): ?>
-                        <a href="<?=$this->adminPath?>show/<?=$table?>" class="vg-wrap vg-element vg-full vg-center <?php if ($table === $this->table) echo 'active'; ?>">
+                        <a href="<?=$this->adminPath?>show/<?=$table?>" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;" class="vg-wrap vg-element vg-full vg-center <?php if ($table === $this->table) echo 'active'; ?>">
                             <div class="vg-element vg-half  vg-center">
                                 <div>
                                     <img src="<?=PATH . ADMIN_TEMPLATE?>img/<?=!empty($item['img']) ? $item['img']  : 'pages.png' ?>" alt="pages">

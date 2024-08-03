@@ -205,7 +205,6 @@ abstract class BaseModel extends BaseModelMethods
         $query = "UPDATE $table SET $update $where";
 
         return $this->query($query, 'u');
-
     }
 
     /**

@@ -61,7 +61,6 @@ class ShowController extends BaseAdmin
         if (!empty($this->columns['menu_position'])) {
             $order[] = 'menu_position';
         } else if (!empty($this->columns['date'])) {
-
             if ($order) {
                 $order_direction = ['ASC', 'DESC'];
             } else {
