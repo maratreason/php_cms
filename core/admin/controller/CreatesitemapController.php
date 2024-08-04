@@ -10,7 +10,9 @@ class CreatesitemapController extends BaseAdmin
 
     protected $all_links = [];
     protected $temp_links = [];
+
     protected $maxLinks = 5000;
+    
     protected $parsingLogFile = 'parsing_log.txt';
     protected $fileArr = ['jpg', 'jpeg', 'png', 'gif', 'xls', 'xlsx', 'pdf', 'mp4', 'mp3', 'mpeg'];
     protected $filterArr = [
@@ -18,8 +20,10 @@ class CreatesitemapController extends BaseAdmin
         'get' => []
     ];
 
-    protected function inputData($links_counter = 1)
+    public function inputData($links_counter = 1, $redirect = true)
     {
+        $links_counter = $this->clearNum($links_counter);
+
         if (!function_exists('curl_init')) {
             $this->cancel(0, 'Library CURL is apsent. Creation of sitemap impossible', '', true);
         }
@@ -47,7 +51,6 @@ class CreatesitemapController extends BaseAdmin
         while ($this->temp_links) {
             $temp_links_count = count($this->temp_links);
             $links = $this->temp_links;
-
             $this->temp_links = [];
 
             if ($temp_links_count > $this->maxLinks) {
@@ -56,13 +59,6 @@ class CreatesitemapController extends BaseAdmin
                 $count_chunks = count($links);
 
                 for ($i = 0; $i < $count_chunks; $i++) {
-                    /*
-                        $links = [
-                            0 => ['link1', 'link2', 'link3'],
-                            1 => ['link4', 'link5', 'link6'],
-                            2 => ['link7']
-                        ];
-                    */
                     $this->parsing($links[$i]);
 
                     unset($links[$i]);
@@ -70,8 +66,8 @@ class CreatesitemapController extends BaseAdmin
                     if ($links) {
                         $this->model->edit('parsing_data', [
                             'fields' => [
+                                'all_links' => json_encode($this->all_links),
                                 'temp_links' => json_encode(array_merge(...$links)),
-                                'all_links' => json_encode($this->all_links)
                             ]
                         ]);
                     }
@@ -82,18 +78,18 @@ class CreatesitemapController extends BaseAdmin
 
             $this->model->edit('parsing_data', [
                 'fields' => [
+                    'all_links' => json_encode($this->all_links),
                     'temp_links' => json_encode($this->temp_links),
-                    'all_links' => json_encode($this->all_links)
                 ]
             ]);
         }
 
-        $this->model->edit('parsing_data', [
-            'fields' => [
-                'temp_links' => '',
-                'all_links' => ''
-            ]
-        ]);
+        // $this->model->edit('parsing_data', [
+        //     'fields' => [
+        //         'all_links' => '',
+        //         'temp_links' => '',
+        //     ]
+        // ]);
 
         if ($this->all_links) {
             foreach ($this->all_links as $key => $link) {
@@ -103,9 +99,12 @@ class CreatesitemapController extends BaseAdmin
 
         $this->createSitemap();
 
-        empty($_SESSION['res']['answer']) && $_SESSION['res']['answer'] = '<div class="success">Sitemap is created.</div>';
-
-        $this->redirect();
+        if ($redirect) {
+            empty($_SESSION['res']['answer']) && $_SESSION['res']['answer'] = '<div class="success">Sitemap is created.</div>';
+            $this->redirect();
+        } else {
+            $this->cancel(1, 'Sitemap is created! ' . count($this->all_links) . ' links', '', true);
+        }
     }
 
     protected function parsing($urls)
