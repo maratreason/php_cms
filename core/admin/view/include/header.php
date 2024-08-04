@@ -63,10 +63,14 @@
 
                 <?php if($this->menu): ?>
                     <?php foreach($this->menu as $table => $item): ?>
-                        <a href="<?=$this->adminPath?>show/<?=$table?>" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;" class="vg-wrap vg-element vg-full vg-center <?php if ($table === $this->table) echo 'active'; ?>">
-                            <div class="vg-element vg-half  vg-center">
+                        <a
+                            href="<?=$this->adminPath?>show/<?=$table?>"
+                            style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;"
+                            class="vg-wrap vg-element vg-full vg-center <?php if ($table === $this->table) echo 'active'; ?>"
+                        >
+                            <div class="vg-element vg-half vg-center">
                                 <div>
-                                    <img src="<?=PATH . ADMIN_TEMPLATE?>img/<?=!empty($item['img']) ? $item['img']  : 'pages.png' ?>" alt="pages">
+                                    <img src="<?=PATH . ADMIN_TEMPLATE?>img/<?=!empty($item['img']) ? $item['img'] : 'pages.png' ?>" alt="pages">
                                 </div>
                             </div>
                             <div class="vg-element vg-half vg-center vg_hidden">

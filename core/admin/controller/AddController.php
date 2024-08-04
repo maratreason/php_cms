@@ -155,7 +155,7 @@ class AddController extends BaseAdmin
                 'fields' => ['COUNT(*) as count'],
                 'where' => $where,
                 'no_concat' => true // Не стыковать таблицы
-            ])[0]['count'] + 1;
+            ])[0]['count'] + 1; // И сразу увеличиваем позицию меню, т.к. мы добавляем.
 
             for ($i = 1; $i <= $menu_pos; $i++) {
                 $this->foreignData['menu_position'][$i - 1]['id'] = $i;

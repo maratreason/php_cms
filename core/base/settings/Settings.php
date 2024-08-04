@@ -37,8 +37,11 @@ class Settings {
     ];
 
     private $expansion = 'core/admin/expansion/';
+
     private $messages = 'core/base/messages/';
+
     private $defaultTable = 'teachers';
+    
     private $formTemplates = PATH . 'core/admin/view/include/form_templates/';
 
     private $projectTables = [
@@ -68,7 +71,7 @@ class Settings {
 
     private $rootItems = [
         'name' => 'Корневая',
-        'tables' => ['articles']
+        'tables' => ['articles', 'teachers']
     ];
 
     private $blockNeedle = [

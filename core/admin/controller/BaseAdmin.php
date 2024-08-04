@@ -115,6 +115,7 @@ abstract class BaseAdmin extends BaseController
 
         $class = $path . $className . 'Expansion';
 
+        // Если класс expansion, то подключаем класс
         if (is_readable($_SERVER['DOCUMENT_ROOT'] . PATH . $class . '.php')) {
             $class = str_replace('/', '\\', $class);
             $exp = $class::instance();
@@ -126,6 +127,7 @@ abstract class BaseAdmin extends BaseController
             }
 
             return $exp->expansion($args);
+            // Если файл expansion, то подключаем файл
         } else {
             $file = $_SERVER['DOCUMENT_ROOT'] . PATH . $path . $this->table . '.php';
 
@@ -153,6 +155,7 @@ abstract class BaseAdmin extends BaseController
 
                 $this->blocks[0][] = $name;
             }
+
             return;
         }
         // $default = ['vg-rows']
