@@ -443,6 +443,7 @@ abstract class BaseAdmin extends BaseController
             }
 
             if ($_POST['alias'] && $id) {
+                // checkOldAlias() в EditController. Он нужен только там.
                 method_exists($this, 'checkOldAlias') && $this->checkOldAlias($id);
             }
 

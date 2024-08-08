@@ -240,6 +240,12 @@ abstract class BaseModelMethods
         $insert_arr['fields'] = '(';
         $array_type = array_keys($fields)[0];
 
+        // Если пришёл массив fields.
+        // $this->model->add('teachers',
+        //      'fields' => [
+        //          0 => ['name' => 'Oksana'],
+        //          1 => ['name' => 'Tanya'],
+        //      ]
         if (is_int($array_type)) {
             $check_fields = false;
             $count_fields = 0;

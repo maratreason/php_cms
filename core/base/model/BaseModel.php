@@ -283,7 +283,7 @@ abstract class BaseModel extends BaseModelMethods
      * Метод показывает данные каждого поля таблицы
      *
      * @param string $table
-     * @return void
+     * @return array
      */
     public final function showColumns($table)
     {
@@ -304,6 +304,11 @@ abstract class BaseModel extends BaseModelMethods
         return $columns; // $result = [id, id_row, name, content, img, gallery_img]
     }
 
+    /**
+     * Выдача всех таблиц из БД.
+     * Метод нужен для провекри наличия вспомогательных таблиц.
+     * @return array - список таблиц.
+     */
     public final function showTables()
     {
         $query = 'SHOW TABLES';
