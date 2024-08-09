@@ -135,7 +135,13 @@ abstract class BaseModel extends BaseModelMethods
         $limit = isset($set['limit']) ? 'LIMIT ' . $set['limit'] : '';
         $query = "SELECT $fields FROM $table $join $where $order $limit";
 
-        return $this->query($query);
+        $res = $this->query($query);
+
+        if (isset($set['join_structure']) && $set['join_structure'] && $res) {
+            $res = $this->joinStructure($res, $table);
+        }
+
+        return $res;
     }
 
     /**
@@ -287,21 +293,31 @@ abstract class BaseModel extends BaseModelMethods
      */
     public final function showColumns($table)
     {
-        $query = "SHOW COLUMNS FROM $table";
-        $res = $this->query($query);
-        $columns = [];
+        if (!isset($this->tableRows[$table]) || !$this->tableRows[$table]) {
+            $query = "SHOW COLUMNS FROM $table";
+            $res = $this->query($query);
 
-        if (isset($res)) {
-            foreach ($res as $row) {
-                $columns[$row['Field']] = $row;
-
-                if ($row['Key'] === 'PRI') {
-                    $columns['id_row'] = $row['Field'];
+            if (isset($res)) {
+                foreach ($res as $row) {
+                    $this->tableRows[$table][$row['Field']] = $row;
+                    // Если первичный ключ еще не найден
+                    if ($row['Key'] === 'PRI') {
+                        // Если ячейки id_row нет, то она создастся и в нее придет поле $row['Field']
+                        if (!isset($this->tableRows[$table]['id_row'])) {
+                            $this->tableRows[$table]['id_row'] = $row['Field'];
+                        } else { // если id_row существует, то не перезаписываем, а создаем ячейку multi_id_row(массив первичных ключей) и добавим в нее ячейку id_row
+                            if (!isset($this->tableRows[$table]['multi_id_row'])) {
+                                $this->tableRows[$table]['multi_id_row'][] = $this->tableRows[$table]['id_row'];
+                            }
+                            // после этого следущим элементом в массив первичных ключей добавляем ячейку $row['Field'].
+                            $this->tableRows[$table]['multi_id_row'][] = $row['Field'];
+                        }
+                    } 
                 }
             }
-        }
 
-        return $columns; // $result = [id, id_row, name, content, img, gallery_img]
+            return $this->tableRows[$table]; // $result = [id, id_row, name, content, img, gallery_img]
+        }
     }
 
     /**
