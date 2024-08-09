@@ -12,10 +12,11 @@ abstract class BaseModelMethods
 
     protected function createFields($set, $table = false, $join = false)
     {
+        $concat_table = '';
         $fields = '';
         $join_structure = false;
 
-        if (($join || (isset($set['join_structure']) && $set['join_structure'])) && $table) {
+        if (($join || isset($set['join_structure']) && $set['join_structure']) && $table) {
             $join_structure = true;
 
             $this->showColumns($table);
@@ -26,7 +27,7 @@ abstract class BaseModelMethods
 
         $concat_table = $table && !isset($set['no_concat']) ? $table . '.' : '';
 
-        if (!isset($set['fields']) || !is_array($set['fields']) && !$set['fields']) {
+        if (!isset($set['fields']) || !is_array($set['fields']) || !$set['fields']) {
             if (!$join) {
                 $fields = $concat_table . '*,';
             } else {
@@ -45,8 +46,12 @@ abstract class BaseModelMethods
                 }
 
                 if ($field) {
-                    if ($join && $join_structure && !preg_match('/\s+as\s+/i', $field)) {
-                        $fields .= $concat_table . $field . ' as TABLE' . $table . 'TABLE_' . $field . ',';
+                    if ($join && $join_structure) {
+                        if (preg_match('/^(.+)?\s+as\s+(.+)/i', $field, $matches)) {
+                            $fields .= $concat_table . $matches[1] . ' as TABLE' . $table . 'TABLE_' . $matches[2] . ',';
+                        } else {
+                            $fields .= $concat_table . $field . ' as TABLE' . $table . 'TABLE_' . $field . ',';
+                        }
                     } else {
                         $fields .= $concat_table . $field . ',';
                     }
@@ -407,10 +412,11 @@ abstract class BaseModelMethods
     protected function joinStructure($res, $table)
     {
         $join_arr = [];
-        $id_row = $this->tableRows[$table]; // id
+        $id_row = $this->tableRows[$table]['id_row']; // id
 
         foreach ($res as $value) {
             if ($value) {
+
                 if (!isset($join_arr[$value[$id_row]])) $join_arr[$value[$id_row]] = [];
 
                 foreach ($value as $key => $item) {
@@ -429,11 +435,11 @@ abstract class BaseModelMethods
                         }
                         // Получаем точное название поля в таблице, исключаем лишние 'TABLE' и 'TABLE_' в запросе 
                         $row = preg_replace('/TABLE(.+)TABLE_/u', '', $key);
-                        
+                        // Делаем структуризацию join в запросе
                         if ($join_id_row && !isset($join_arr[$value[$id_row]]['join'][$table_name_normal][$join_id_row][$row])) {
                             $join_arr[$value[$id_row]]['join'][$table_name_normal][$join_id_row][$row] = $item;
                         }
-
+                        // идем на следующую итерацию цикла
                         continue;
                     }
 
