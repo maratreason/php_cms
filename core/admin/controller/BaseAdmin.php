@@ -510,11 +510,67 @@ abstract class BaseAdmin extends BaseController
     protected function createManyToMany($settings = false) {
         if (!$settings) $settings = $this->settings ?: Settings::instance();
 
-        $manyToMany = $settings::get('ManyToMany');
+        $manyToMany = $settings::get('manyToMany');
         $blocks = $settings::get('blockNeedle');
 
-        if ($manyToMany) {
-            
+        if (!empty($manyToMany)) {
+            foreach ($manyToMany as $mTable => $tables) {
+                // Ключ целевой таблицы => 0 или 1
+                $targetKey = array_search($this->table, $tables);
+
+                if ($targetKey !== false) {
+                    // Ключ другой таблицы, с которой будем связываться
+                    $otherKey = $targetKey ? 0 : 1;
+
+                    // Нужно ли делать вывод данных в checkboxlist
+                    $checkboxList = $settings::get('templateArr')['checkboxlist'];
+                    
+                    if (!$checkboxList || !in_array($tables[$otherKey], $checkboxList)) continue;
+
+                    if (!isset($this->translate[$tables[$otherKey]])) {
+                        if ($settings::get('projectTables')[$tables[$otherKey]]) {
+                            $this->translate[$tables[$otherKey]] = [$settings::get('projectTables')[$tables[$otherKey]]['name']];
+                        }
+                    }
+
+                    $orderData = $this->createOrderData($tables[$otherKey]);
+
+                    $insert = false;
+
+                    if (!empty($blocks)) {
+                        foreach ($blocks as $key => $item) {
+                            if (in_array($tables[$otherKey], $item)) {
+                                $this->blocks[$key][] = $tables[$otherKey];
+                                $insert = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!$insert) {
+                        // В первую ячейку $this->blocks кладем название таблицы
+                        $this->blocks[array_keys($this->blocks)[0]] = $tables[$otherKey];
+                    }
+
+                    $foreign = [];
+
+                    // Работаем в режиме редактирования
+                    if (!empty($this->data)) {
+                        // Получаем данные связанные с другой таблицей
+                        $res = $this->model->get($mTable, [
+                            'fields' => [$tables[$otherKey] . '_' . $orderData['columns']['id_row']], // fields => ['goods . _id']
+                            'where' => [$this->table . '_' . $this->columns['id_row'] = $this->data[$this->columns['id_row']]]
+                        ]);
+
+                        if (!empty($res)) {
+                            // формируем массив $foreign
+                            foreach ($res as $item) {
+                                $foreign[] = $item[$tables[$otherKey] . '_' . $orderData['columns']['id_row']];
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
