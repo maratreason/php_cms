@@ -286,7 +286,7 @@ abstract class BaseModel extends BaseModelMethods
     }
 
     /**
-     * Метод показывает данные каждого поля таблицы
+     * Метод показывает данные каждого поля таблицы в виде ассоциативного массива
      *
      * @param string $table
      * @return array
@@ -323,9 +323,13 @@ abstract class BaseModel extends BaseModelMethods
                     } 
                 }
             }
-            // $result = [id, id_row, name, content, img, gallery_img]
-            return $this->tableRows[$table];
         }
+
+        if (isset($checkTable) && $checkTable['table'] !== $checkTable['alias']) {
+            return $this->tableRows[$checkTable['alias']] = $this->tableRows[$checkTable['table']];
+        }
+        // $result = [id, id_row, name, content, img, gallery_img]
+        return $this->tableRows[$table];
     }
 
     /**
