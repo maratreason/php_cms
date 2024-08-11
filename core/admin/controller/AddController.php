@@ -18,14 +18,8 @@ class AddController extends BaseAdmin
         $this->createMenuPosition();
         $this->createRadio();
         $this->createOutputData();
-        
-        // Эмуляция данных для показа в add/teachers
-        // $this->data = [
-        //     'name' => 'Masha',
-        //     'img' => '1.jpg',
-        //     'gallery_img' => json_encode(['2.jpg', '3.jpg'])
-        // ];
 
+        $this->createManyToMany();
     }
 
     protected function createForeignProperty($arr, $rootItems)
