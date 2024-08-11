@@ -149,10 +149,11 @@ abstract class BaseModelMethods
 
         $order_by = '';
 
-        if (!empty($set['order']) && is_array($set['order'])) {
+        if (isset($set['order']) && $set['order']) {
+            $set['order'] = (array) $set['order'];
             // Направление сортировки
-            $set['order_direction'] = (!empty($set['order_direction']) && is_array($set['order_direction']))
-                ? $set['order_direction']
+            $set['order_direction'] = (isset($set['order_direction']) && $set['order_direction'])
+                ? (array) $set['order_direction']
                 : ['ASC'];
 
             $order_by = 'ORDER BY ';
@@ -185,22 +186,34 @@ abstract class BaseModelMethods
         return $order_by;
     }
 
+    /**
+     * Инструкция WHERE
+     *
+     * @param boolean $table таблица
+     * @param array $set параметры и условия запроса
+     * @param string $instruction WHERE, AND, OR
+     * @return mixed
+     */
     protected function createWhere($set, $table = false, $instruction = 'WHERE')
     {
-        $table = ($table && !isset($set['no_concat'])) ? $table . '.' : '';
+        $table = ($table && (!isset($set['no_concat']) || !$set['no_concat']))
+            ? $this->createTableAlias($table)['alias'] . '.' 
+            : '';
+
         $where = '';
 
-        if (!empty($set['where']) && is_string($set['where'])) {
+        if (isset($set['where']) && is_string($set['where'])) {
             return $instruction . ' ' . trim($set['where']);
         }
 
-        if (!empty($set['where']) && is_array($set['where'])) {
-            // name = 'Masha', fio LIKE 'Smirnova'
-            $set['operand'] = !empty($set['operand']) && is_array($set['operand']) ? $set['operand'] : ['='];
-            // name = 'Masha' AND fio LIKE 'Smirnova'
-            $set['condition'] = !empty($set['condition']) && is_array($set['condition']) ? $set['condition'] : ['AND'];
-            $where = $instruction;
+        if (isset($set['where']) && is_array($set['where']) && !empty($set['where'])) {
+            // = <> IN NOT LIKE // IN (SELECT * FROM $table)) могут быть и вложенные запросы
+            $set['operand'] = (isset($set['operand']) && is_array($set['operand']) && !empty($set['operand'])) ? $set['operand'] : ['='];
+            // AND OR
+            $set['condition'] = (isset($set['condition']) && is_array($set['condition']) && !empty($set['condition'])) ? $set['condition'] : ['AND'];
 
+            $where = $instruction;
+            // Сортировка по разным полям
             $o_count = 0;
             $c_count = 0;
 
@@ -297,27 +310,19 @@ abstract class BaseModelMethods
                     }
                 }
 
+                $concatTable = $this->createTableAlias($key)['alias'];
+
                 if (isset($join)) $join .= ' ';
 
                 if (isset($item['on'])) {
-
                     $join_fields = [];
 
-                    switch (2) {
-                        // если в fields лежат 2 элемента то все ок.
-                        // 'on' => ['parent_id', 'id']
-                        case (!empty($item['on']['fields']) && is_array($item['on']['fields']) && count($item['on']['fields'])):
-                            $join_fields = $item['on']['fields'];
-                            break;
-
-                        case (is_array($item['on']) && count($item['on'])):
-                            $join_fields = $item['on'];
-                            break;
-
-                        default:
-                            // выйти из второго уровня цикла и перекинуть на следующую итерацию foreach
-                            continue 2;
-                            break;
+                    if (isset($item['on']['fields']) && is_array($item['on']['fields']) && count($item['on']['fields']) === 2) {
+                        $join_fields = $item['on']['fields'];
+                    } elseif (count($item['on']) === 2) {
+                        $join_fields = $item['on'];
+                    } else {
+                        continue;
                     }
 
                     if (!isset($item['type'])) {
@@ -329,16 +334,18 @@ abstract class BaseModelMethods
                     $join .= $key . ' ON ';
 
                     if (isset($item['on']['table'])) {
-                        $join .= $item['on']['table'];
+                        $join_temp_table = $item['on']['table'];
                     } else {
-                        $join .= $join_table;
+                        $join_temp_table = $join_table;
                     }
-                    // $key - таблица
-                    $join .= '.' . $join_fields[0] . '=' . $key . '.' . $join_fields[1];
+
+                    $join .= $this->createTableAlias($join_temp_table)['alias'];
+                    $join .= '.' . $join_fields[0] . '=' . $concatTable . '.' . $join_fields[1];
                     $join_table = $key;
 
                     if ($new_where) {
-                        if (!empty($item['where'])) {
+                        // если есть дополнительное условие
+                        if (isset($item['where'])) {
                             $new_where = false;
                         }
 
@@ -491,7 +498,7 @@ abstract class BaseModelMethods
     protected function joinStructure($res, $table)
     {
         $join_arr = [];
-        $id_row = $this->tableRows[$table]['id_row']; // id
+        $id_row = $this->tableRows[$this->createTableAlias($table)['alias']]['id_row']; // id
 
         foreach ($res as $value) {
             if ($value) {
