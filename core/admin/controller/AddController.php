@@ -78,7 +78,7 @@ class AddController extends BaseAdmin
                 // Получаем ключи
                 $this->createForeignProperty($item, $rootItems);
             }
-        } else if ($this->columns['parent_id']) {
+        } else if (!empty($this->columns['parent_id'])) {
             $arr['COLUMN_NAME'] = 'parent_id';
             $arr['REFERENCED_COLUMN_NAME'] = $this->columns['id_row'];
             $arr['REFERENCED_TABLE_NAME'] = $this->table;

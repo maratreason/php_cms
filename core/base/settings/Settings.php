@@ -79,13 +79,13 @@ class Settings {
     private $manyToMany = [
         // таблица, показывать только родительский раздел parent или childs
         // 'goods_filters' => ['goods', 'filters', 'type' => 'root'], // 'type' => 'child' || 'root' || 'all'
-        'goods_filters' => ['goods', 'filters'], 
+        'goods_filters' => ['goods', 'filters', 'type' => 'root'], 
     ];
 
     private $blockNeedle = [
         'vg-rows' => [],
-        'vg-img' => ['img', 'gallery_img'],
-        'vg-content' => ['keywords', 'content']
+        'vg-img' => ['img'],
+        'vg-content' => ['content']
     ];
 
     private $validation = [
