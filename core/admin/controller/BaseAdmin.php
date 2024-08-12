@@ -507,15 +507,16 @@ abstract class BaseAdmin extends BaseController
         return compact('name', 'parent_id', 'order', 'columns');
     }
 
-    protected function createManyToMany($settings = false) {
+    protected function createManyToMany($settings = false)
+    {
         if (!$settings) $settings = $this->settings ?: Settings::instance();
 
         $manyToMany = $settings::get('manyToMany');
         $blocks = $settings::get('blockNeedle');
 
-        if (!empty($manyToMany)) {
+        if (isset($manyToMany)) {
             foreach ($manyToMany as $mTable => $tables) {
-                // Ключ целевой таблицы => 0 или 1
+                // ответ 1, 0 или false, если ничего не нашлось
                 $targetKey = array_search($this->table, $tables);
 
                 if ($targetKey !== false) {
@@ -537,7 +538,7 @@ abstract class BaseAdmin extends BaseController
 
                     $insert = false;
 
-                    if (!empty($blocks)) {
+                    if ($blocks) {
                         foreach ($blocks as $key => $item) {
                             if (in_array($tables[$otherKey], $item)) {
                                 $this->blocks[$key][] = $tables[$otherKey];
@@ -546,23 +547,20 @@ abstract class BaseAdmin extends BaseController
                             }
                         }
                     }
-
-                    if (!$insert) {
-                        // В первую ячейку $this->blocks кладем название таблицы
-                        $this->blocks[array_keys($this->blocks)[0]] = $tables[$otherKey];
-                    }
+                    // В первую ячейку $this->blocks кладем название таблицы
+                    if (!$insert) $this->blocks[array_keys($this->blocks)[0]][] = $tables[$otherKey];
 
                     $foreign = [];
 
                     // Работаем в режиме редактирования
-                    if (!empty($this->data)) {
+                    if ($this->data) {
                         // Получаем данные связанные с другой таблицей
                         $res = $this->model->get($mTable, [
                             'fields' => [$tables[$otherKey] . '_' . $orderData['columns']['id_row']], // fields => ['goods . _id']
                             'where' => [$this->table . '_' . $this->columns['id_row'] = $this->data[$this->columns['id_row']]]
                         ]);
 
-                        if (!empty($res)) {
+                        if ($res) {
                             // формируем массив $foreign
                             foreach ($res as $item) {
                                 $foreign[] = $item[$tables[$otherKey] . '_' . $orderData['columns']['id_row']];
@@ -570,33 +568,30 @@ abstract class BaseAdmin extends BaseController
                         }
                     }
 
-                    if (isset($tables['type'])) {
+                    if (isset($tables['type']) && $tables['type']) {
                         $data = $this->model->get($tables[$otherKey], [
                             'fields' => [$orderData['columns']['id_row'] . ' as id', $orderData['name'], $orderData['parent_id']],
                             'order' => $orderData['order']
                         ]);
 
-                        if (!empty($data)) {
+                        if ($data) {
+                            $this->foreignData[$tables[$otherKey]][$tables[$otherKey]]['name'] = 'Выбрать';
+
                             foreach ($data as $item) {
                                 // Если это родитель
                                 if ($tables['type'] === 'root' && isset($orderData['parent_id'])) {
-                                    if ($item[$orderData['parent_id']] === null) {
-                                        $this->foreignData[$tables[$otherKey]][$tables[$otherKey]]['sub'][] = $item;
-                                    }
-                                // Если хотим увидеть только детей
+                                    if ($item[$orderData['parent_id']] === null) $this->foreignData[$tables[$otherKey]][$tables[$otherKey]]['sub'][] = $item;
+                                
+                                    // Если хотим увидеть только детей
                                 } else if ($tables['type'] === 'child' && isset($orderData['parent_id'])) {
-                                    if ($item[$orderData['parent_id']] !== null) {
-                                        $this->foreignData[$tables[$otherKey]][$tables[$otherKey]]['sub'][] = $item;
-                                    }
-                                // Сваливаем всё, и родительские и дочерние категории
+                                    if ($item[$orderData['parent_id']] !== null) $this->foreignData[$tables[$otherKey]][$tables[$otherKey]]['sub'][] = $item;
+                                
+                                    // Сваливаем всё, и родительские и дочерние категории
                                 } else {
                                     $this->foreignData[$tables[$otherKey]][$tables[$otherKey]]['sub'][] = $item;
                                 }
                                 
-                                if (in_array($item['id'], $foreign)) {
-                                    $this->data[$tables[$otherKey]][$tables[$otherKey]][] = $item['id'];
-                                }
-
+                                if (in_array($item['id'], $foreign)) $this->data[$tables[$otherKey]][$tables[$otherKey]][] = $item['id'];
                             }
                         }
                     } elseif ($orderData['parent_id']) {
@@ -612,72 +607,102 @@ abstract class BaseAdmin extends BaseController
                                 }
                             }
                         }
-                    }
 
-                    if ($parent === $tables[$otherKey]) {
+                        if ($parent === $tables[$otherKey]) {
+                            $data = $this->model->get($tables[$otherKey], [
+                                'fields' => [$orderData['columns']['id_row'] . ' as id', $orderData['name'], $orderData['parent_id']],
+                                'order' => $orderData['order']
+                            ]);
+
+                            if ($data) {
+                                // функция key() возвращает ключ массива. Пока $key не будет null
+                                while(($key = key($data)) !== null) {
+                                    if (!isset($data[$key]['parent_id'])) {
+                                        $this->foreignData[$tables[$otherKey]][$data[$key]['id']]['name'] = $data[$key]['name'];
+                                        unset($data[$key]);
+                                        reset($data); // сбрасываем обход массива на начало.
+
+                                        continue;
+                                    } else {
+                                        // Делаем множественное вложение
+                                        if ($this->foreignData[$tables[$otherKey]][$data[$key][$orderData['parent_id']]]) {
+                                            $this->foreignData[$tables[$otherKey]][$data[$key][$orderData['parent_id']]]['sub'][$data[$key]['id']] = $data[$key];
+
+                                            if (in_array($data[$key]['id'], $foreign)) $this->data[$tables[$otherKey]][$data[$key][$orderData['parent_id']]][] = $data[$key]['id'];
+
+                                            unset($data[$key]);
+                                            reset($data);
+
+                                            continue;
+
+                                        } else {
+                                            foreach ($this->foreignData[$tables[$otherKey]] as $id => $item) {
+                                                $parent_id = $data[$key][$orderData['parent_id']];
+
+                                                if (isset($item['sub']) && $item['sub'] && isset($item['sub'][$parent_id])) {
+                                                    $this->foreignData[$tables[$otherKey]][$id]['sub'][$data[$key]['id']] = $data[$key];
+
+                                                    if (in_array($data[$key]['id'], $foreign))
+                                                        $this->data[$tables[$otherKey]][$id][] = $data[$key]['id'];
+
+                                                    unset($data[$key]);
+                                                    reset($data);
+
+                                                    continue 2; // выйти из внутреннего цикла
+                                                }
+                                            }
+                                        }
+
+                                        next($data);
+                                    }
+                                }
+                            }
+                        } else {
+                            $parentOrderData = $this->createOrderData($parent);
+
+                            $data = $this->model->get($parent, [
+                                'fields' => [$parentOrderData['name']],
+                                'join' => [
+                                    $tables[$otherKey] => [
+                                        'fields' => [$orderData['columns']['id_row'] . ' as id', $orderData['name']],
+                                        'on' => [$parentOrderData['columns']['id_row'], $orderData['parent_id']]
+                                    ]
+                                ],
+                                'join_structure' => true
+                            ]);
+
+                            foreach ($data as $key => $item) {
+                                if (isset($item['join'][$tables[$otherKey]]) && $item['join'][$tables[$otherKey]] && isset($item['name'])) {
+                                    $this->foreignData[$tables[$otherKey]][$key]['name'] = $item['name'];
+                                    $this->foreignData[$tables[$otherKey]][$key]['sub'] = $item['join'][$tables[$otherKey]];
+
+                                    foreach ($item['join'][$tables[$otherKey]] as $value) {
+                                        if (in_array($value['id'], $foreign)) $this->data[$tables[$otherKey]][$key][] = $value['id'];
+                                    }
+                                }
+                            }
+                        }
+
+                    } else {
                         $data = $this->model->get($tables[$otherKey], [
                             'fields' => [$orderData['columns']['id_row'] . ' as id', $orderData['name'], $orderData['parent_id']],
                             'order' => $orderData['order']
                         ]);
 
                         if ($data) {
-                            while(($key = key($data)) !== null) {
+                            $this->foreignData[$tables[$otherKey]][$tables[$otherKey]]['name'] = 'Выбрать';
 
-                                if (!isset($data[$key]['parent_id'])) {
-                                    $this->foreignData[$tables[$otherKey]][$data[$key]['id']]['name'] = $data[$key]['name'];
-                                    unset($data[$key]);
-                                    reset($data); // сбрасываем обход массива на начало.
+                            foreach ($data as $item) {
+                                $this->foreignData[$tables[$otherKey]][$tables[$otherKey]]['sub'][] = $item;
 
-                                    continue;
-                                } else {
-                                    // Делаем множественное вложение
-                                    if ($this->foreignData[$tables[$otherKey]][$data[$key][$orderData['parent_id']]]) {
-                                        $this->foreignData[$tables[$otherKey]][$data[$key][$orderData['parent_id']]]['sub'][$data[$key]['id']] = $data[$key];
-
-                                        if (in_array($data[$key]['id'], $foreign)) {
-                                            $this->data[$tables[$otherKey]][$data[$key][$orderData['parent_id']]][] = $data[$key]['id'];
-                                        }
-
-                                        unset($data[$key]);
-                                        reset($data);
-
-                                        continue;
-                                    } else {
-
-                                        foreach ($this->foreignData[$tables[$otherKey]] as $id => $item) {
-                                            $parent_id = $data[$key][$orderData['parent_id']];
-
-                                            if (isset($item['sub']) && isset($item['sub'][$parent_id])) {
-                                                // Кладем значение
-                                                $this->foreignData[$tables[$otherKey]][$id]['sub'][$data[$key]['id']] = $data[$key];
-
-                                                if (in_array($data[$key]['id'], $foreign)) {
-                                                    $this->data[$tables[$otherKey]][$id][] = $data[$key]['id'];
-                                                }
-
-                                                unset($data[$key]);
-                                                reset($data);
-
-                                                continue 2;
-                                            }
-                                        }
-
-                                    }
-
-                                    next($data);
-                                }
-
+                                if (in_array($item['id'], $foreign)) $this->data[$tables[$otherKey]][$tables[$otherKey]][] = $item['id'];
                             }
                         }
-
-                    } else {
-
                     }
 
-                    exit;
-                    
                 }
             }
+
         }
     }
 }
