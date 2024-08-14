@@ -338,7 +338,7 @@ abstract class BaseAdmin extends BaseController
 
         $this->createFile();
         $this->createAlias($id);
-        $this->updateMenuPosition();
+        $this->updateMenuPosition($id);
 
         $except = $this->checkExceptFields();
 
@@ -400,8 +400,19 @@ abstract class BaseAdmin extends BaseController
         $this->fileArray = $fileEdit->addFile();
     }
 
-    protected function updateMenuPosition()
+    protected function updateMenuPosition($id = false)
     {
+        if (isset($_POST['menu_position'])) {
+            $where = false;
+
+            if ($id && $this->columns['id_row']) $where = [$this->columns['id_row'] => $id];
+
+            if (array_key_exists('parent_id', $_POST)) {
+                $this->model->updateMenuPosition($this->table, 'menu_position', $where, $_POST['menu_position'], ['where' => 'parent_id']);
+            } else {
+                $this->model->updateMenuPosition($this->table, 'menu_position', $where, $_POST['menu_position']);
+            }
+        }
     }
 
     protected function createAlias($id = false)
@@ -470,6 +481,34 @@ abstract class BaseAdmin extends BaseController
         }
 
         return false;
+    }
+
+    protected function checkOldAlias($id)
+    {
+        $tables = $this->model->showTables();
+
+        if (!empty($tables) && in_array('old_alias', $tables)) {
+
+            $old_alias = $this->model->get($this->table, [
+                'fields' => ['alias'],
+                'where' => [$this->columns['id_row'] => $id]
+            ])[0]['alias'];
+
+            if (!empty($old_alias) && $old_alias !== $_POST['alias']) {
+
+                $this->model->delete('old_alias', [
+                    'where' => ['alias' => $old_alias, 'table_name' => $this->table]
+                ]);
+
+                $this->model->delete('old_alias', [
+                    'where' => ['alias' => $_POST['alias'], 'table_name' => $this->table]
+                ]);
+
+                $this->model->add('old_alias', [
+                    'fields' => ['alias' => $old_alias, 'table_name' => $this->table, 'table_id' => $id]
+                ]);
+            }
+        }
     }
 
     protected function createOrderData($table)
@@ -560,7 +599,7 @@ abstract class BaseAdmin extends BaseController
                         // Получаем данные связанные с другой таблицей
                         $res = $this->model->get($mTable, [
                             'fields' => [$tables[$otherKey] . '_' . $orderData['columns']['id_row']], // fields => ['goods . _id']
-                            'where' => [$this->table . '_' . $this->columns['id_row'] = $this->data[$this->columns['id_row']]]
+                            'where' => [$this->table . '_' . $this->columns['id_row'] => $this->data[$this->columns['id_row']]]
                         ]);
 
                         if ($res) {
@@ -757,6 +796,127 @@ abstract class BaseAdmin extends BaseController
                 }
             }
         }
+    }
+
+    protected function createForeignProperty($arr, $rootItems)
+    {
+        if (in_array($this->table, $rootItems['tables'])) {
+            $this->foreignData[$arr['COLUMN_NAME']][0]['id'] = 'NULL';
+            $this->foreignData[$arr['COLUMN_NAME']][0]['name'] = $rootItems['name'];
+        }
+
+        $where = [];
+        $operand = '';
+
+        $orderData = $this->createOrderData($arr['REFERENCED_TABLE_NAME']);
+
+        if ($this->data) {
+            if ($arr['REFERENCED_TABLE_NAME'] === $this->table) {
+                // $this->columns['id_row'] => вернет значение. Например 'id'
+                $where[$this->columns['id_row']] = $this->data[$this->columns['id_row']];
+                $operand[] = '<>'; // <> => не равно
+            }
+        }
+        
+        $foreign = $this->model->get($arr['REFERENCED_TABLE_NAME'], [
+            'fields' => [$arr['REFERENCED_COLUMN_NAME'] . ' as id', $orderData['name'], $orderData['parent_id']],
+            'where' => $where,
+            'operand' => $operand,
+            'order' => $orderData['order']
+        ]);
+
+        if ($foreign) {
+            if (!empty($this->foreignData[$arr['COLUMN_NAME']])) {
+                foreach ($foreign as $value) {
+                    // добавляем динамически значение $value
+                    $this->foreignData[$arr['COLUMN_NAME']][] = $value;
+                }
+            } else {
+                $this->foreignData[$arr['COLUMN_NAME']] = $foreign;
+            }
+        }
+    }
+
+    /**
+     * Метод получения данных из связанных таблиц
+     * @param boolean $settings
+     * @return mixed
+     */
+    protected function createForeignData($settings = false)
+    {
+        if (!$settings) $settings = Settings::instance();
+
+        $rootItems = $settings::get('rootItems');
+        $keys = $this->model->showForeignKeys($this->table);
+
+        if (!empty($keys)) {
+            foreach ($keys as $item) {
+                // Получаем ключи
+                $this->createForeignProperty($item, $rootItems);
+            }
+        } else if (!empty($this->columns['parent_id'])) {
+            $arr['COLUMN_NAME'] = 'parent_id';
+            $arr['REFERENCED_COLUMN_NAME'] = $this->columns['id_row'];
+            $arr['REFERENCED_TABLE_NAME'] = $this->table;
+
+            $this->createForeignProperty($arr, $rootItems);
+        }
+
+        return;
+    }
+
+    protected function createMenuPosition($settings = false)
+    {
+        if (isset($this->columns['menu_position'])) {
+            $where = [];
+
+            if (!$settings) $settings = Settings::instance();
+
+            $rootItems = $settings::get('rootItems');
+
+            if (isset($this->columns['parent_id'])) {
+                if (in_array($this->table, $rootItems['tables'])) {
+                    $where = 'parent_id IS NULL OR parent_id = 0';
+                } else {
+                    $parent = $this->model->showForeignKeys($this->table, 'parent_id')[0];
+
+                    if ($parent) {
+                        if ($this->table === $parent['REFERENCED_TABLE_NAME']) {
+                            $where = 'parent_id IS NULL OR parent_id = 0';
+                        } else {
+                            $columns = $this->model->showColumns($parent['REFERENCED_TABLE_NAME']);
+
+                            if (isset($columns['parent_id'])) $order[] = 'parent_id';
+                                else $order[] = $parent['REFERENCED_COLUMN_NAME'];
+
+                            $id = $this->model->get($parent['REFERENCED_TABLE_NAME'], [
+                                'fields' => [$parent['REFERENCED_COLUMN_NAME']],
+                                'order' => $order,
+                                'limit' => '1'
+                            ])[0][$parent['REFERENCED_COLUMN_NAME']];
+                            
+                            if ($id) $where = ['parent_id' => $id];
+                        }
+
+                    } else {
+                        $where = 'parent_id IS NULL OR parent_id = 0';
+                    }
+                }
+            }
+
+            $menu_pos = $this->model->get($this->table, [
+                'fields' => ['COUNT(*) as count'],
+                'where' => $where,
+                'no_concat' => true
+            ])[0]['count'] + (int) !$this->data;
+
+            for ($i = 1; $i <= $menu_pos; $i++) {
+                $this->foreignData['menu_position'][$i - 1]['id'] = $i;
+                $this->foreignData['menu_position'][$i - 1]['name'] = $i;
+            }
+        }
+
+        return;
     }
 
 }
