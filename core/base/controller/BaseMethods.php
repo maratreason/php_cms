@@ -18,9 +18,9 @@ trait BaseMethods
         }
     }
 
-    protected function clearNum($num)
+    protected function clearNum(mixed $num)
     {
-        return $num * 1;
+        return (!empty($num) && preg_match('/\d/', $num)) ? preg_replace('/[^\d.]/', '', $num) * 1 : 0;
     }
 
     protected function isPost()
