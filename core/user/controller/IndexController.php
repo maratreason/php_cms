@@ -11,6 +11,23 @@ class IndexController extends BaseController
 
     protected function inputData()
     {
+        echo '<div>';
+
+        echo 'Hello World';
+
+        $user = ['name' => 'john', 'age' => 30];
+        // if (isset($user['name'])) {
+        //     $name = $user['name'];
+        // } else {
+        //     $name = 'unknown';
+        // }
+
+        $name = $user['name'] ?? 'unknown';
+
+        echo $name;
+
+        echo '</div>';
+
         $name = 'Ivan';
 
         $this->init();
@@ -19,30 +36,30 @@ class IndexController extends BaseController
         $header = $this->render(TEMPLATE . 'header');
         $footer = $this->render(TEMPLATE . 'footer');
 
-        $model = Model::instance();
+        // $model = Model::instance();
 
-        $res = $model->get('goods', [
-            'where' => ['id' => '37,38'],
-            'operand' => ['IN'],
-            'join' => [
-                'goods_filters' => [
-                    'fields' => null,
-                    'on' => ['id', 'teachers']
-                ],
-                'filters f' => [
-                    'fields' => ['name as student_name', 'content'],
-                    'on' => ['students', 'id']
-                ],
-                'filters' => [
-                    'on' => ['parent_id', 'id']
-                ],
-            ],
-            'join_structure' => true,
-            'order' => ['id'],
-            'order_direction' => ['DESC']
-        ]);
+        // $res = $model->get('goods', [
+        //     'where' => ['id' => '37,38'],
+        //     'operand' => ['IN'],
+        //     'join' => [
+        //         'goods_filters' => [
+        //             'fields' => null,
+        //             'on' => ['id', 'teachers']
+        //         ],
+        //         'filters f' => [
+        //             'fields' => ['name as student_name', 'content'],
+        //             'on' => ['students', 'id']
+        //         ],
+        //         'filters' => [
+        //             'on' => ['parent_id', 'id']
+        //         ],
+        //     ],
+        //     'join_structure' => true,
+        //     'order' => ['id'],
+        //     'order_direction' => ['DESC']
+        // ]);
 
-        exit(print_arr($res));
+        // exit(print_arr($res));
 
         return compact('header', 'content', 'footer');
     }

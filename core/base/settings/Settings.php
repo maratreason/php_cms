@@ -79,7 +79,7 @@ class Settings {
     private $manyToMany = [
         // таблица, показывать только родительский раздел parent или childs
         // 'goods_filters' => ['goods', 'filters', 'type' => 'root'], // 'type' => 'child' || 'root' || 'all'
-        'goods_filters' => ['goods', 'filters', 'type' => 'root'], 
+        'goods_filters' => ['goods', 'filters'], 
     ];
 
     private $blockNeedle = [
