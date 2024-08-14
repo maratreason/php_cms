@@ -277,8 +277,15 @@ abstract class BaseModelMethods
                     // Если SELECT стоит на первой позиции, значит мы хотим сделать вложенный запрос
                     if (strpos($item, 'SELECT') === 0) {
                         $where .= $table . $key . $operand . '(' . $item . ") $condition";
+                    } elseif ($item === null || $item === 'NULL') {
+                        if ($operand === '=') {
+                            $where .= $table . $key . ' IS NULL ' . $condition;
+                        } else {
+                            $where .= $table . $key . ' IS NOT NULL ' . $condition;
+                        }
                     } else {
-                        $where .= $table . $key . $operand . "'" . $item . "' $condition";
+                        $where .= $table . $key . $operand . "'" . addslashes($item) . "' $condition";
+
                     }
                 }
             }
