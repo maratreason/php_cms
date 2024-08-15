@@ -919,4 +919,45 @@ abstract class BaseAdmin extends BaseController
         return;
     }
 
+    protected function checkFiles($id)
+    {
+        if ($id) {
+            $arrKeys = [];
+
+            if (!empty($this->fileArray)) $arrKeys = array_keys($this->fileArray);
+
+            if (!empty($_POST['js-sorting'])) $arrKeys = array_merge($arrKeys, array_keys($_POST['js-sorting']));
+
+            if ($arrKeys) {
+                $arrKeys = array_unique($arrKeys);
+
+                $data = $this->model->get($this->table, [
+                    'fields' => $arrKeys,
+                    'where' => [$this->columns['id_row'] => $id]
+                ]);
+    
+                if ($data) {
+                    $data = $data[0];
+    
+                    foreach ($data as $key => $item) {
+                        if ((!empty($this->fileArray[$key]) && is_array($this->fileArray[$key])) || !empty($_POST['js-sorting'])) {
+                            $fileArr = json_decode($item);
+    
+                            if ($fileArr) {
+                                foreach ($fileArr as $file) {
+                                    $this->fileArray[$key][] = $file;
+                                }
+                            }
+
+                        } elseif (!empty($this->fileArray[$key])) {
+                            @unlink($_SERVER['DOCUMENT_ROOT'] . PATH . UPLOAD_DIR . $item);
+                        }
+                    }
+    
+                }
+            }
+        }
+        
+    }
+
 }
