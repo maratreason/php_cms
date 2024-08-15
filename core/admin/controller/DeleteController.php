@@ -117,5 +117,47 @@ class DeleteController extends BaseAdmin
 
     protected function checkDeleteFile()
     {
+        unset($this->parameters[$this->table]);
+        $updateFlag = false;
+
+        foreach ($this->parameters as $row => $item) {
+            $item = base64_decode($item);
+
+            if (!empty($this->data[$row])) {
+                $data = json_decode($this->data[$row], true);
+
+                if ($data) {
+                    foreach ($data as $key => $value) {
+                        if ($item === $value) {
+                            $updateFlag = true;
+
+                            @unlink($_SERVER['DOCUMENT_ROOT'] . PATH . UPLOAD_DIR . $item); // удаляем файл
+                            unset($data[$key]);
+
+                            $this->data[$row] = $data ? json_encode($data) : 'NULL'; // если в массиве $data еще что-то осталось, то кодируем строкой или NULL
+
+                            break;
+                        }
+                    }
+                } elseif ($this->data[$row] === $item) {
+                    $updateFlag = true;
+
+                    @unlink($_SERVER['DOCUMENT_ROOT'] . PATH . UPLOAD_DIR . $item); // удаляем файл
+                    $this->data[$row] = 'NULL';
+                }
+            }
+        }
+
+        if ($updateFlag) {
+            $this->model->edit($this->table, [
+                'fields' => $this->data
+            ]);
+
+            $_SESSION['res']['answer'] = '<div class="success">' . $this->messages['editSuccess'] . '</div>';
+        } else {
+            $_SESSION['res']['answer'] = '<div class="error">' . $this->messages['editFail'] . '</div>';
+        }
+
+        $this->redirect();
     }
 }
