@@ -1,4 +1,4 @@
-<div class="vg-element vg-full vg-box-shadow img_wrapper">
+<div class="vg-element vg-full vg-box-shadow img_container img_wrapper">
     <div class="vg-wrap vg-element vg-full">
         <div class="vg-wrap vg-element vg-full">
             <div class="vg-element vg-full vg-left">
@@ -15,7 +15,7 @@
         <div class="vg-wrap vg-element vg-full gallery_container">
             <label class="vg-dotted-square vg-center" draggable="false">
                 <img src="<?=PATH . ADMIN_TEMPLATE?>img/plus.png" alt="plus" draggable="false">
-                <input class="gallery_img" style="display: none;" type="file" name="<?=$row?>[]" multiple="" accept="image/*,image/jpeg,image/png,image/gif" draggable="false">
+                <input class="gallery_img" style="display: none;" type="file" name="<?=$row?>[]" multiple accept="image/*,image/jpeg,image/png,image/gif" draggable="false">
             </label>
 
             <?php if ($this->data[$row]): ?>
