@@ -8,9 +8,7 @@ trait BaseMethods
     protected function clearStr($str)
     {
         if (is_array($str)) {
-            foreach ($str as $key => $item) {
-                $str[$key] = trim(strip_tags($item));
-            }
+            foreach ($str as $key => $item) $str[$key] = $this->clearStr($item);
 
             return $str;
         } else {
