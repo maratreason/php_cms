@@ -27,6 +27,7 @@ abstract class BaseController
 
     protected $userId;
     protected $data;
+    protected $ajaxData;
 
     protected function init($admin = false)
     {
