@@ -378,6 +378,7 @@ abstract class BaseModelMethods
     {
         $insert_arr = [];
         $insert_arr['fields'] = '(';
+        $insert_arr['values'] = '';
         $array_type = array_keys($fields)[0];
 
         // Если пришёл массив fields.
