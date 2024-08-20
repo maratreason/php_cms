@@ -38,7 +38,8 @@ class FileEdit
 
                         $res_name = $this->createFile($file_arr);
 
-                        if ($res_name) $this->imgArr[$key][] = $res_name;
+                        // if ($res_name) $this->imgArr[$key][] = $res_name;
+                        if ($res_name) $this->imgArr[$key][$i] = $res_name;
 
                     }
 
@@ -46,7 +47,7 @@ class FileEdit
 
             } else {
 
-                if (!empty($file['name'])) {
+                if (isset($file['name'])) {
 
                     $res_name = $this->createFile($file);
 
