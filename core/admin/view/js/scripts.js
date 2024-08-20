@@ -67,11 +67,13 @@ function createFile() {
               let elId = fileStore[fileName].push(item.files[i]) - 1;
               container[i].setAttribute(`data-deleteFileId-${attributeName}`, elId);
 
-              showImage(item.files[i], container[i], function () {
-                parentContainer.sortable({
-                  excludedElements: "label .empty_container",
-                });
-              });
+              showImage(item.files[i], container[i],
+              //   function () {
+              //   parentContainer.sortable({
+              //     excludedElements: "label .empty_container",
+              //   });
+              // }
+              );
 
               deleteNewFiles(elId, fileName, attributeName, container[i]);
             } else {
@@ -120,15 +122,14 @@ function createFile() {
           contentType: false,
         }).then((res) => {
           try {
-            let res2 = JSON.parse(res);
-            console.log("res:", res2)
-            if (!res2.success) throw new Error();
+            res = JSON.parse(res);
+
+            if (!res.success) throw new Error();
 
             location.reload();
-          } catch (e) {
-            alert("Произошла внутренняя ошибка", e);
+          } catch (err) {
+            alert("Произошла внутренняя ошибка", err);
           }
-
         });
       }
     };
@@ -137,9 +138,11 @@ function createFile() {
   // Удаление файлов
   function deleteNewFiles(elId, fileName, attributeName, container) {
     container.addEventListener("click", function () {
-      this.remove();
-      // Удаляем из массива, но с сохранением ключей, элемент станет empty, но длина массива останется такой же.
-      delete fileStore[fileName][elId];
+      if(e.target === container){
+        this.remove();
+        // Удаляем из массива, но с сохранением ключей, элемент станет empty, но длина массива останется такой же.
+        delete fileStore[fileName][elId];
+      }
     });
   }
 
