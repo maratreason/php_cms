@@ -31,7 +31,7 @@ const Ajax = (set) => {
     }
   }
 
-  if (set.type === "GET") {
+  if (set.type === "GET" && body) {
     set.url += "?" + body;
     body = null;
   }
