@@ -278,7 +278,7 @@ abstract class BaseModel extends BaseModelMethods
         } else {
             $join_arr = $this->createJoin($set, $table);
             $join = $join_arr['join'];
-            $join_tables = $join_arr['tables'];
+            $join_tables = isset($join_arr['tables']) ? $join_arr['tables'] : '';
             $query = 'DELETE ' . $table . $join_tables . ' FROM ' . $table . ' ' . $join . ' ' . $where;
         }
 
