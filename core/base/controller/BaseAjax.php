@@ -20,16 +20,16 @@ class BaseAjax extends BaseController
 
         $controller = str_replace('/', '\\', $controller);
         $ajax = new $controller;
-        // $ajax->ajax($data);
+        $ajax->ajax($data);
 
         $ajax->ajaxData = $data;
-        // $res = $ajax->ajax();
+        $res = $ajax->ajax();
 
-        return ($ajax->ajax());
+        // return ($ajax->ajax());
 
-        // if (is_array($res) || is_object($res)) $res = json_encode($res);
-        // elseif (is_int($res)) $res = (float) $res;
+        if (is_array($res) || is_object($res)) $res = json_encode($res);
+        elseif (is_int($res)) $res = (float) $res;
 
-        // return $res;
+        return $res;
     }
 }
