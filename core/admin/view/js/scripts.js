@@ -281,3 +281,24 @@ function blockParameters() {
     });
   }
 }
+
+showHideMenuSearch();
+
+// Скрипт показа и скрытия меню и поиска
+function showHideMenuSearch() {
+  document.querySelector("#hideButton").addEventListener("click", () => {
+    document.querySelector(".vg-carcass").classList.toggle("vg-hide");
+  });
+
+  const searchBtn = document.querySelector("#searchButton");
+  const searchInput = searchBtn.querySelector("input[type=text]");
+
+  searchBtn.addEventListener("click", () => {
+    searchBtn.classList.add("vg-search-reverse");
+    searchInput.focus();
+  });
+
+  searchInput.addEventListener("blur", () => {
+    searchBtn.classList.remove("vg-search-reverse");
+  });
+}
