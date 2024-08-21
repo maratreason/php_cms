@@ -25,8 +25,6 @@ class BaseAjax extends BaseController
         $ajax->ajaxData = $data;
         $res = $ajax->ajax();
 
-        // return ($ajax->ajax());
-
         if (is_array($res) || is_object($res)) $res = json_encode($res);
         elseif (is_int($res)) $res = (float) $res;
 
