@@ -85,8 +85,14 @@ function createFile() {
 
         console.log(fileStore);
       }
-    });
 
+      let area = item.closest(".img_wrapper");
+
+      if (area) {
+        dragAndDrop(area, item);
+      }
+
+    });
   }
 
   let form = document.querySelector("#main-form");
@@ -160,6 +166,28 @@ function createFile() {
     };
   }
 
+  function dragAndDrop(area, input) {
+    // пошел, двигается, вышел, упал
+    ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName, index) => {
+      area.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (index < 2) {
+          area.style.background = "lightblue";
+        } else {
+          area.style.background = "#fff";
+
+          // если drop
+          if (index === 3) {
+            input.files = e.dataTransfer.files;
+            input.dispatchEvent(new Event("change"));
+          }
+        }
+      });
+    });
+  }
+
 }
 
 function isEmpty(arr) {
@@ -168,4 +196,88 @@ function isEmpty(arr) {
   }
 
   return true;
+}
+
+changeMenuPosition();
+
+function changeMenuPosition() {
+  let form = document.querySelector("#main-form");
+
+  if (form) {
+    let selectParent = form.querySelector("select[name=parent_id]");
+    let selectPosition = form.querySelector("select[name=menu_position]");
+
+    if (selectPosition && selectParent) {
+      let defaultParent = selectParent.value;
+      let defaultPosition = +selectPosition.value;
+
+      selectParent.addEventListener("change", function () {
+        let defaultChoose = false;
+
+        if (this.value === defaultParent) defaultChoose = true;
+
+        Ajax({
+          data: {
+            table: form.querySelector("input[name=table]").value,
+            parent_id: this.value,
+            ajax: "change_parent",
+            iteration: !form.querySelector("#tableId") ? 1 : +!defaultChoose,
+          },
+        }).then((res) => {
+          res = +res;
+
+          if (!res) return errorAlert();
+
+          let newSelect = document.createElement("select");
+          newSelect.setAttribute("name", "menu_position");
+          newSelect.classList.add("vg-input", "vg-text", "vg-full", "vg-firm-color1");
+
+          for (let i = 1; i <= res; i++) {
+            let selected = defaultChoose && i === defaultPosition ? "selected" : "";
+
+            newSelect.insertAdjacentHTML("beforeend", `<option ${selected} value="${i}">${i}</option>`);
+          }
+
+          selectPosition.before(newSelect);
+          selectPosition.remove();
+
+          selectPosition = newSelect;
+        });
+      });
+    }
+  }
+}
+
+blockParameters();
+
+// Аккордеон
+function blockParameters() {
+  let wraps = document.querySelectorAll(".select_wrap");
+
+  if (wraps.length) {
+    let selectAllIndexes = [];
+
+    wraps.forEach((item) => {
+      let next = item.nextElementSibling;
+
+      if (next && next.classList.contains("option_wrap")) {
+        item.addEventListener("click", (e) => {
+          if (!e.target.classList.contains("select_all")) {
+            // аккордеон
+            // Element.prototype.slideToggle
+            next.slideToggle();
+          } else {
+            // Выделение всех чекбоксов
+            let index = [...document.querySelectorAll(".select_all")].indexOf(e.target);
+
+            if (typeof selectAllIndexes[index] === "undefined") selectAllIndexes[index] = false;
+
+            selectAllIndexes[index] = !selectAllIndexes[index];
+
+            next.querySelectorAll("input[type=checkbox]").forEach((el) => (el.checked = selectAllIndexes[index]));
+          }
+        });
+      }
+    });
+  }
 }
