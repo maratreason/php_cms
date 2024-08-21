@@ -302,3 +302,62 @@ function showHideMenuSearch() {
     searchBtn.classList.remove("vg-search-reverse");
   });
 }
+
+// Система поиска
+const searchResultHover = (() => {
+  const searchRes = document.querySelector(".search_res");
+  const searchInput = document.querySelector("#searchButton input[type=text]");
+  let defaultInputValue = null;
+
+  function searchKeyDown(e) {
+    if (
+      !document.querySelector("#searchButton").classList.contains("vg-search-reverse") ||
+      (e.key !== "ArrowUp" && e.key !== "ArrowDown")
+    ) return;
+
+    let children = [...searchRes.children];
+
+    if (children.length) {
+      e.preventDefault();
+
+      const activeItem = searchRes.querySelector(".search_act");
+      let activeIndex = activeItem ? children.indexOf(activeItem) : -1;
+
+      if (e.key === "ArrowUp") {
+        activeIndex = activeIndex <= 0 ? children.length - 1 : --activeIndex;
+      } else {
+        activeIndex = activeIndex === children.length - 1 ? 0 : ++activeIndex;
+      }
+
+      children.forEach((item) => item.classList.remove("search_act"));
+      children[activeIndex].classList.add("search_act");
+
+      searchInput.value = children[activeIndex].innerText;
+    }
+  }
+
+  function setDefaultValue() {
+    searchInput.value = defaultInputValue;
+  }
+
+  searchRes.addEventListener("mouseleave", setDefaultValue);
+  window.addEventListener("keydown", searchKeyDown);
+
+  return () => {
+    defaultInputValue = searchInput.value;
+
+    if (searchRes.children.length) {
+      let children = [...searchRes.children];
+
+      children.forEach((item) => {
+        item.addEventListener("mouseover", () => {
+          children.forEach((el) => el.classList.remove("search_act"));
+          item.classList.add("search_act");
+          searchInput.value = item.innerText;
+        });
+      });
+    }
+  };
+})();
+
+searchResultHover();
