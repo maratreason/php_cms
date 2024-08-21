@@ -33,7 +33,13 @@
                         </div>
                         <form method="post" action="<?=PATH . \core\base\settings\Settings::get('routes')['admin']['alias']?>/search" autocomplete="off">
                             <input type="text" name="search" class="vg-input vg-text">
-                            <div class="vg-element vg-firm-background-color4 vg-box-shadow search_links search_res"></div>
+                            <div class="vg-element vg-firm-background-color4 vg-box-shadow search_links search_res">
+                                <a href="">LINK</a>
+                                <a href="">LINK</a>
+                                <a href="">LINK</a>
+                                <a href="">LINK</a>
+                                <a href="">LINK</a>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -65,7 +71,6 @@
                     <?php foreach($this->menu as $table => $item): ?>
                         <a
                             href="<?=$this->adminPath?>show/<?=$table?>"
-                            style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;"
                             class="vg-wrap vg-element vg-full vg-center <?php if ($table === $this->table) echo 'active'; ?>"
                         >
                             <div class="vg-element vg-half vg-center">
