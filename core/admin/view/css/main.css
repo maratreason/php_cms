@@ -102,7 +102,7 @@ label.vg-element {
 /* My styles */
 
 .border-radius-10 {
-    border-radius: 5px;
+    border-radius: 0;
 }
 
 .gap-20 {
@@ -706,7 +706,7 @@ textarea {
 
 .option_wrap {
     display: -webkit-flex;
-    /* display: none; */
+    display: none;
     -webkit-flex-direction: column;
     flex-direction: column;
 }
