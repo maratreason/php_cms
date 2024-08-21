@@ -21,9 +21,21 @@ class AjaxController extends BaseAdmin
                     $this->checkPost();
                     return json_encode(['success' => 1]);
                     break;
+                case 'change_parent':
+                    return $this->changeParent();
+                    break;
             }
         }
 
         return json_encode(['success' => '0', 'message' => 'No ajax variable']);
+    }
+
+    protected function changeParent()
+    {
+        return $this->model->get($this->ajaxData['table'], [
+            'fields' => ['COUNT(*) as count'],
+            'where' => ['parent_id' => $this->ajaxData['parent_id']],
+            'no_concat' => true
+        ])[0]['count'] + $this->ajaxData['iteration'];
     }
 }
