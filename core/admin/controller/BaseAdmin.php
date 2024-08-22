@@ -342,7 +342,7 @@ abstract class BaseAdmin extends BaseController
             }
         }
 
-        $this->createFile();
+        $this->createFiles($id);
         $this->createAlias($id);
         $this->updateMenuPosition($id);
 
@@ -400,10 +400,43 @@ abstract class BaseAdmin extends BaseController
         return $except;
     }
 
-    protected function createFile()
+    protected function createFiles($id = null)
     {
         $fileEdit = new FileEdit();
         $this->fileArray = $fileEdit->addFile();
+
+        if ($id) {
+            $this->checkFiles($id);
+        }
+
+        if (!empty($_POST['js-sorting']) && $this->fileArray) {
+            foreach($_POST['js-sorting'] as $key => $item) {
+                if (!empty($item) && !empty($this->fileArray[$key])) {
+                        $fileArr = json_decode($item);
+                    if ($fileArr) {
+                        $this->fileArray[$key] = $this->sortingFiles($fileArr, $this->fileArray[$key]);
+                    }
+                }
+            }
+        }
+    }
+
+    protected function sortingFiles($fileArr, $arr) {
+        $res = [];
+
+        foreach ($fileArr as $file) {
+            if (!is_numeric($file)) {
+                $file = substr($file, strlen(PATH . UPLOAD_DIR));
+            } else {
+                $file = $arr[$file];
+            }
+
+            if (isset($file) && in_array($file, $arr)) {
+                $res[] = $file;
+            }
+        }
+
+        return $res;
     }
 
     protected function updateMenuPosition($id = false)
@@ -946,7 +979,7 @@ abstract class BaseAdmin extends BaseController
                     $data = $data[0];
     
                     foreach ($data as $key => $item) {
-                        if ((!empty($this->fileArray[$key]) && is_array($this->fileArray[$key])) || !empty($_POST['js-sorting'])) {
+                        if ((!empty($this->fileArray[$key]) && is_array($this->fileArray[$key])) || !empty($_POST['js-sorting'][$key])) {
                             $fileArr = json_decode($item);
     
                             if ($fileArr) {
