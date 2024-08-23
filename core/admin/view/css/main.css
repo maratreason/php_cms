@@ -514,7 +514,8 @@ textarea {
     height: 300px;
 }
 
-.mce-tinymce.mce-container.mce-panel {
+.mce-tinymce.mce-container.mce-panel,
+.tox-tinymce {
     width: 100%;
     max-width: 98vw;
 }
