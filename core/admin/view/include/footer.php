@@ -11,6 +11,7 @@
         <script>
             const PATH = '<?=PATH?>';
             const ADMIN_MODE = 1;
+            const tinyMceDefaultAreas = '<?=implode(',', $this->blocks['vg-content'])?>';
         </script>
 
         <?php $this->getScripts(); ?>   
