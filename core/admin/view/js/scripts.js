@@ -69,10 +69,10 @@ function createFile() {
 
               showImage(item.files[i], container[i],
                 function () {
-                parentContainer.sortable({
-                  excludedElements: "label .empty_container",
-                });
-              }
+                  parentContainer.sortable({
+                    excludedElements: "label .empty_container",
+                  });
+                }
               );
 
               deleteNewFiles(elId, fileName, attributeName, container[i]);
@@ -129,6 +129,7 @@ function createFile() {
         }).then((res) => {
           try {
             res = JSON.parse(res);
+            console.log("res", res);
 
             if (!res.success) throw new Error();
 
@@ -362,6 +363,29 @@ const searchResultHover = (() => {
 
 searchResultHover();
 
+search();
+
+// Поиск в панели администратора
+function search() {
+  let searchInput = document.querySelector("input[name=search]");
+
+  if (searchInput) {
+    searchInput.oninput = () => {
+      if (searchInput.value.length > 1) {
+        Ajax({
+          data: {
+            data: searchInput.value,
+            table: document.querySelector('input[name="search_table"]').value,
+            ajax: "search"
+          }
+        }).then(res => {
+          console.log(res);
+        });
+      }
+    }
+  }
+}
+
 // Сортировка картинок
 let galleries = document.querySelectorAll(".gallery_container");
 
@@ -377,11 +401,11 @@ if (galleries.length) {
   });
 }
 
-document.querySelector(".vg-rows > div").sortable();
+// document.querySelector(".vg-rows > div").sortable();
 
 function createJsSortable(form) {
   if (form) {
-    let sortable = form.querySelectorAll(`input[type="file"][multiple]`);
+    let sortable = form.querySelectorAll("input[type=file][multiple]");
 
     if (sortable.length) {
       sortable.forEach((item) => {
@@ -409,7 +433,7 @@ function createJsSortable(form) {
                 if (container.children[i].tagName === "A") {
                   res.push(container.children[i].querySelector("img").getAttribute("src"));
                 } else {
-                  res.push(container.children[i].getAttribute(`data-deletefield-${name}`));
+                  res.push(container.children[i].getAttribute(`data-deletefileid-${name}`));
                 }
               }
 
