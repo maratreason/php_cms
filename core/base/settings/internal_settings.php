@@ -19,7 +19,12 @@ const QTY_LINKS = 3;
 
 const ADMIN_CSS_JS = [
     'styles' => ['css/main.css'],
-    'scripts' => ['js/framework-functions.js', 'js/scripts.js']
+    'scripts' => [
+        'js/framework-functions.js',
+        'js/scripts.js',
+        'js/tinymce/tinymce.min.js',
+        'js/tinymce/tinymce_init.js',
+    ]
 ];
 
 const USER_CSS_JS = [
