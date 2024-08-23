@@ -4,6 +4,8 @@ namespace core\admin\model;
 
 use core\base\model\BaseModel;
 use core\base\controller\Singleton;
+use core\base\exceptions\RouteException;
+use core\base\settings\Settings;
 
 class Model extends BaseModel
 {
@@ -122,5 +124,108 @@ class Model extends BaseModel
         }
 
         return $this->query($query, 'u');
+    }
+
+    /**
+     * Поиск в административной панели
+     *
+     * @param mixed $data
+     * @param string $table
+     * @param number $count
+     * @return void
+     */
+    public function search($data, $currentTable = false, $qty = false)
+    {
+        $dbTables = $this->showTables();
+        $data = addslashes($data);
+
+        $arr = preg_split('/(,|\.)?\s+/', $data, 0, PREG_SPLIT_NO_EMPTY);
+        $searchArr = [];
+        $order = [];
+
+        for (;;) {
+            if (!$arr) break;
+
+            $searchArr[] = implode(' ', $arr);
+
+            unset($arr[count($arr) - 1]);
+        }
+
+        $correctCurrentTable = false;
+        $projectTables = Settings::get('projectTables');
+
+        if (!$projectTables) throw new RouteException('Ошибка поиска нет разделов в админ панели');
+
+        foreach ($projectTables as $table => $item) {
+            if (!in_array($table, $dbTables)) continue;
+
+            $searchRows = [];
+            $orderRows = ['name']; // сортировать
+            $fields = [];
+            $columns = $this->showColumns($table);
+
+            $fields[] = $columns['id_row'] . ' as id';
+
+            $fieldName = isset($columns['name']) ? "CASE WHEN name <> '' THEN name " : '';
+
+            foreach ($columns as $col => $value) {
+                if ($col !== 'name' && stripos($col, 'name') !== false) {
+                    if (!$fieldName) $fieldName = 'CASE ';
+
+                    $fieldName .= "WHEN $col <> '' THEN $col ";
+                }
+
+                if (isset($value['Type']) && (stripos($value['Type'], 'char') !== false || stripos($value['Type'], 'text') !== false)) {
+                    $searchRows[] = $col;
+                }
+            }
+
+            if ($fieldName) {
+                $fields[] = $fieldName . ' END as name';
+            } else {
+                $fields[] = $columns['id_row'] . ' as name';
+            }
+
+            $fields[] = "('$table') AS table_name";
+
+            $res = $this->createWhereOrder($searchRows, $searchArr, $orderRows, $table);
+
+            $where = $res['where'];
+            !$order && $order = $res['order'];
+
+            if ($table === $currentTable) {
+                $correctCurrentTable = true;
+                $fields[] = "('current_table') AS current_table";
+            }
+
+            if ($where) {
+                // $this->buildUnion();
+            }
+        }
+
+        $order_direction = null;
+
+        if ($order) {
+            $order = ($correctCurrentTable ? 'current_table DESC, ' : '') . '(' . implode('+', $order) . ')';
+            $order_direction = 'DESC';
+        }
+
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param Array $searchRows
+     * @param Array $searchArr
+     * @param Array $orderRows
+     * @param String $table
+     * @return mixed
+     */
+    protected function createWhereOrder($searchRows, $searchArr, $orderRows, $table)
+    {
+        $where = [];
+        $order = [];
+
+        return compact('where', 'order');
     }
 }
