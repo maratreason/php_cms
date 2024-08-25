@@ -299,7 +299,9 @@ function showHideMenuSearch() {
     searchInput.focus();
   });
 
-  searchInput.addEventListener("blur", () => {
+  searchInput.addEventListener("blur", (e) => {
+    if (e.relatedTarget && e.relatedTarget.tagName === "A") return;
+
     searchBtn.classList.remove("vg-search-reverse");
   });
 }
@@ -333,7 +335,7 @@ const searchResultHover = (() => {
       children.forEach((item) => item.classList.remove("search_act"));
       children[activeIndex].classList.add("search_act");
 
-      searchInput.value = children[activeIndex].innerText;
+      searchInput.value = children[activeIndex].innerText.replace(/\(.+?\)s*?/, "");
     }
   }
 
@@ -379,7 +381,26 @@ function search() {
             ajax: "search"
           }
         }).then(res => {
-          console.log(res);
+          try {
+            res = JSON.parse(res);
+            
+            let resBlock = document.querySelector(".search_res");
+            let counter = res.length > 20 ? 20 : res.length;
+
+            if (resBlock) {
+              resBlock.innerHTML = "";
+
+              for (let i = 0; i < counter; i++) {
+                let html = `<a href="${res[i]['alias']}">${res[i]['name']}</a>`;
+                resBlock.insertAdjacentHTML("beforeend", html);
+              }
+
+              searchResultHover();
+            }
+
+          } catch (e) {
+            alert("Ошибка поиска в административной панели");
+          }
         });
       }
     }
