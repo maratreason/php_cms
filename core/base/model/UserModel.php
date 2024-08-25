@@ -104,4 +104,92 @@ class UserModel extends BaseModel
 
         return $this->userData;
     }
+
+    private function set()
+    {
+        $cookieString = $this->package();
+
+        if ($cookieString) {
+            // Баним на 10 лет
+            setcookie($this->cookieName, $cookieString, time() + 60 * 60 * 24 * 365 * 10, PATH);
+
+            return true;
+        }
+
+        throw new AuthException('Ошибка формирования cookie', 1);
+    }
+
+    private function package(): string
+    {
+        if (!empty($this->userData['id'])) {
+            $data['id'] = $this->userData['id'];
+            $data['version'] = COOKIE_VERSION;
+            $data['cookie_time'] = date('Y-m-d H:i:s');
+
+            return Crypt::instance()->encrypt(json_encode($data));
+        }
+
+        throw new AuthException('Некорректный идентификатор пользователя - ' . $this->userData['id'], 1);
+    }
+
+    private function unPackage()
+    {
+        if (empty($_COOKIE[$this->cookieName])) {
+            throw new AuthException('Отсутствует cookie пользователя');
+        }
+
+        $data = json_decode(Crypt::instance()->decrypt($_COOKIE[$this->cookieName]), true);
+
+        if (empty($data['id']) || empty($data['version']) || empty($data['cookie_time'])) {
+            $this->logout();
+
+            throw new AuthException('Некорректные данные в cookie пользователя', 1);
+        }
+
+        $this->validate($data);
+
+        $this->userData = $this->get($this->userTable, [
+            'where' => ['id' => $data['id']]
+        ]);
+
+        if (!$this->userData) {
+            $this->logout();
+
+            throw new AuthException('На нейдены данные в таблице' . $this->userTable . ' по идентификатору ' . $data['id'], 1);
+        }
+
+        return true;
+    }
+
+    /**
+     * Метод проверяет версию куки и время куки
+     * Версия куки нужна для глобальной переавторизации всех пользователей
+     *
+     * @return void
+     */
+    private function validate($data)
+    {
+        if (!empty(COOKIE_VERSION)) {
+            if ($data['version'] !== COOKIE_VERSION) {
+                $this->logout();
+                throw new AuthException('Некорректная версия cookie');
+            }
+        }
+
+        if (!empty(COOKIE_TIME)) {
+            if ((new \DateTime()) > (new \DateTime($data['cookie_time']))->modify(COOKIE_TIME . ' minutes')) {
+                throw new AuthException('Превышено время бездействия пользователя');
+            }
+        }
+    }
+
+    /**
+     * Выбрасываем куки пользователя
+     *
+     * @return void
+     */
+    public function logout()
+    {
+        setcookie($this->cookieName, '', 1, PATH);
+    }
 }
