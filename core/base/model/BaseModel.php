@@ -135,6 +135,8 @@ abstract class BaseModel extends BaseModelMethods
         $limit = isset($set['limit']) ? 'LIMIT ' . $set['limit'] : '';
         $query = "SELECT $fields FROM $table $join $where $order $limit";
 
+        if (!empty($set['return_query'])) return $query;
+
         $res = $this->query($query);
 
         if (isset($set['join_structure']) && $set['join_structure'] && $res) {
@@ -283,6 +285,117 @@ abstract class BaseModel extends BaseModelMethods
         }
 
         return $this->query($query, 'u');
+    }
+
+    /**
+     * Построение Union запросов
+     *
+     * @param string $table
+     * @param array $set
+     * @return this chaining
+     */
+    public function buildUnion($table, $set)
+    {
+        if (array_key_exists('fields', $set) && $set['fields'] === null) return $this;
+
+        if (!array_key_exists('fields', $set) || empty($set['fields'])) {
+            $set['fields'] = [];
+            $columns = $this->showColumns($table);
+
+            unset($columns['id_row'], $columns['multi_id_row']);
+
+            foreach ($columns as $row => $item) {
+                $set['fields'][] = $row;
+            }
+        }
+
+        $this->union[$table] = $set;
+
+        $this->union[$table]['return_query'] = true;
+
+        return $this;
+    }
+
+    public function getUnion($set = [])
+    {
+        if (!$this->union) return false;
+
+        $unionType = ' UNION ' . (!empty($set['type']) ? strtoupper($set['type']) . ' ' : '');
+
+        $maxCount = 0;
+        $maxTableCount = '';
+
+        foreach ($this->union as $key => $item) {
+            $count = count($item['fields']);
+            $joinFields = '';
+
+            if (!empty($item['join'])) {
+                foreach ($item['join'] as $table => $data) {
+                    if (array_key_exists('fields', $data) && $data['fields']) {
+                        $count += count($data['fields']);
+                        $joinFields = $table;
+                    } else if (!array_key_exists('fields', $data) || (!$joinFields['data']) || $data['fields'] === null) {
+                        $columns = $this->showColumns($table);
+                        unset($columns['id_row'], $columns['multi_id_row']);
+                        $count += count($columns);
+
+                        foreach ($columns as $field => $value) {
+                            $this->union[$key]['join'][$table]['fields'][] = $field;
+                        }
+
+                        $joinFields = $table;
+                    }
+                }
+            } else {
+                $this->union[$key]['no_concat'] = true;
+            }
+
+            if ($count > $maxCount || ($count === $maxCount && $joinFields)) {
+                $maxCount = $count;
+                $maxTableCount = $key;
+            }
+
+            $this->union[$key]['lastJoinTable'] = $joinFields;
+            $this->union[$key]['countFields'] = $count;
+        }
+
+        $query = '';
+
+        if ($maxCount && $maxTableCount) {
+            $query .= '(' . $this->get($maxTableCount, $this->union[$maxTableCount]) . ')';
+            unset($this->union[$maxTableCount]);
+        }
+
+        foreach ($this->union as $key => $item) {
+            if (isset($item['countFields']) && $item['countFields'] < $maxCount) {
+
+                for ($i = 0; $i < $maxCount - $item['countFields']; $i++) {
+                    if ($item['lastJoinTable']) {
+                        $item['join'][$item['lastJoinTable']]['fields'][] = null;
+                    } else {
+                        $item['fields'][] = null;
+                    }
+                }
+                
+            }
+
+            $query && $query .= $unionType;
+        
+            $query .= '(' . $this->get($key, $item) . ')';
+        }
+
+        $order = $this->createOrder($set);
+
+        $limit = !empty($set['limit']) ? 'LIMIT ' . $set['limit'] : '';
+
+        if (method_exists($this, 'createPagination')) {
+            $this->createPagination($set, "($query)", $limit);
+        }
+
+        $query .= " $order $limit";
+        $this->union = [];
+        
+        return $this->query(trim($query));
     }
 
     /**
