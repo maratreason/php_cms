@@ -9,6 +9,7 @@ abstract class BaseModelMethods
 {
     protected $sqlFunc = ['NOW()'];
     protected $tableRows;
+    protected $union = [];
 
     // protected function createFields($set, $table = false, $join = false)
     // {
@@ -115,7 +116,12 @@ abstract class BaseModelMethods
                     $id_field = true;
                 }
 
-                if ($field) {
+                if ($field || $field === null) {
+                    if ($field === null) {
+                        $fields .= "NULL,";
+                        continue;
+                    }
+
                     if ($join && $join_structure) {
                         if (preg_match('/^(.+)?\s+as\s+(.+)/i', $field, $matches)) {
                             $fields .= $concat_table . $matches[1] . ' as TABLE' . $alias_table . 'TABLE_' . $matches[2] . ',';
@@ -123,7 +129,7 @@ abstract class BaseModelMethods
                             $fields .= $concat_table . $field . ' as TABLE' . $alias_table . 'TABLE_' . $field . ',';
                         }
                     } else {
-                        $fields .= $concat_table . $field . ',';
+                        $fields .= (!preg_match('/(\([^()]*\))|(case\s+.+?\s+end)/i', $field) ? $concat_table : '') . $field . ',';
                     }
                 }
             }
@@ -361,7 +367,7 @@ abstract class BaseModelMethods
                         $group_condition = isset($item['group_condition']) ? strtoupper($item['group_condition']) : 'AND';
                     }
 
-                    $fields .= $this->createFields($item, $key, $set['join_structure']);
+                    $fields .= $this->createFields($item, $key, (isset($set['join_structure']) ? $set['join_structure'] : null));
                     $where .= $this->createWhere($item, $key, $group_condition);
                 }
             }
