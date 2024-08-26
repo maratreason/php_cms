@@ -12,7 +12,7 @@ class UserModel extends BaseModel
     use BaseMethods;
 
     private $cookieName = 'identifier';
-    private $cookieAdminName = 'identifier';
+    private $cookieAdminName = 'AdminPanelCache';
     private $userData = [];
     private $error;
     // Таблица посетителей
@@ -157,6 +157,8 @@ class UserModel extends BaseModel
 
             throw new AuthException('На нейдены данные в таблице' . $this->userTable . ' по идентификатору ' . $data['id'], 1);
         }
+
+        $this->userData = $this->userData[0];
 
         return true;
     }
