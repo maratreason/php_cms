@@ -3,6 +3,7 @@
 namespace core\base\controller;
 
 use core\base\exceptions\RouteException;
+use core\base\model\UserModel;
 use core\base\settings\Settings;
 
 abstract class BaseController
@@ -139,5 +140,22 @@ abstract class BaseController
         }
 
         exit();
+    }
+
+    /**
+     * Проверяем админ или не админ
+     *
+     * @param boolean $type
+     * @return void
+     */
+    protected function checkAuth($type = false)
+    {
+        if (!($this->userId = UserModel::instance()->checkUser(false, $type))) {
+            $type && $this->redirect(PATH);
+        }
+
+        if (property_exists($this, 'userModel')) {
+            $this->userModel = UserModel::instance();
+        }
     }
 }
