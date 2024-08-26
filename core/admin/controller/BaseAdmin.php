@@ -41,6 +41,8 @@ abstract class BaseAdmin extends BaseController
                 exit('Вы используете устаревшую версию браузера. Пожалуйста обновитесь до актуальной версии');
             }
         }
+        // Защищаем страницы
+        $this->checkAuth(true);
 
         $this->init(true);
         $this->title = 'VG engine';
