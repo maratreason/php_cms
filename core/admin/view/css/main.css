@@ -514,6 +514,14 @@ textarea {
     height: 300px;
 }
 
+.img_show:hover {
+    background: lightgrey;
+}
+
+.img_show img {
+    min-width: 50px;
+}
+
 .mce-tinymce.mce-container.mce-panel,
 .tox-tinymce {
     width: 100%;
