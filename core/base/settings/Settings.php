@@ -26,7 +26,7 @@ class Settings {
             'path' => 'core/user/controller/',
             'hrUrl' => true,
             'routes' => [
-                'catalog' => 'site/input/output'
+                
             ]
         ],
         'default' => [
@@ -45,19 +45,23 @@ class Settings {
     private $formTemplates = PATH . 'core/admin/view/include/form_templates/';
 
     private $projectTables = [
-        'articles' => ['name' => 'Статьи'],
-        'pages' => ['name' => 'Страницы'],
+        'catalog' => ['name' => 'Каталог'],
         'goods' => ['name' => 'Товары', 'img' => 'pages.png'],
         'filters' => ['name' => 'Фильтры'],
+        'articles' => ['name' => 'Статьи'],
+        'sales' => ['name' => 'Акции'],
+        'information' => ['name' => 'Информация'],
+        'socials' => ['name' => 'Социальные сети'],
+        'settings' => ['name' => 'Настройки системы']
     ];
 
     private $templateArr = [
-        'text' => ['name'],
-        'textarea' => ['content', 'keywords'],
-        'radio' => ['visible'],
+        'text' => ['name', 'phone', 'email', 'alias', 'external_alias', 'subtitle', 'number_of_years'],
+        'textarea' => ['content', 'keywords', 'address', 'description', 'short_content'],
+        'radio' => ['visible', 'show_top_menu'],
         'checkboxlist' => ['filters'],
         'select' => ['menu_position', 'parent_id'],
-        'img' => ['img'],
+        'img' => ['img', 'socials', 'img_years'],
         'gallery_img' => ['gallery_img', 'new_gallery_img'],
     ];
 
@@ -69,15 +73,30 @@ class Settings {
         'keywords' => ['Ключевые слова', 'Не более 70 символов'],
         'img' => ['Картинка', ''],
         'gallery_img' => ['Галерея картинок', ''],
+        'content' => ['Описание'],
+        'description' => ['SEO описание'],
+        'phone' => ['Телефон'],
+        'email' => ['Email'],
+        'address' => ['Адрес'],
+        'alias' => ['Ссылка ЧПУ'],
+        'show_top_menu' => ['Показывать в верхнем меню'],
+        'external_alias' => ['Внешняя ссылка'],
+        'visible' => ['Показывать на сайте'],
+        'menu_position' => ['Позиция в меню'],
+        'subtitle' => ['Подзаголовок'],
+        'short_content' => ['Краткое описание'],
+        'img_years' => ['Изображение количества лет на рынке'],
+        'number_of_years' => ['Количество лет на рынке'],
     ];
 
     private $radio = [
-        'visible' => ['Нет', 'Да', 'default' => 'Да']
+        'visible' => ['Нет', 'Да', 'default' => 'Да'],
+        'show_top_menu' => ['Нет', 'Да', 'default' => 'Да']
     ];
 
     private $rootItems = [
         'name' => 'Корневая',
-        'tables' => ['articles', 'goods', 'filters']
+        'tables' => ['articles', 'goods', 'filters', 'catalog']
     ];
 
     private $manyToMany = [
@@ -88,7 +107,7 @@ class Settings {
 
     private $blockNeedle = [
         'vg-rows' => [],
-        'vg-img' => ['img', 'new_gallery_img'],
+        'vg-img' => ['img', 'new_gallery_img', 'img_years', 'number_of_years'],
         'vg-content' => ['content', 'keywords']
     ];
 
