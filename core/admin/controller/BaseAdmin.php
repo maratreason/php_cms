@@ -855,7 +855,7 @@ abstract class BaseAdmin extends BaseController
             if ($arr['REFERENCED_TABLE_NAME'] === $this->table) {
                 // $this->columns['id_row'] => вернет значение. Например 'id'
                 $where[$this->columns['id_row']] = $this->data[$this->columns['id_row']];
-                $operand[] = '<>'; // <> => не равно
+                $operand = '<>'; // <> => не равно
             }
         }
         
