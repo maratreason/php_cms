@@ -124,7 +124,7 @@ abstract class BaseController
 
         ob_start();
 
-        if (!@include_once $path . '.php') {
+        if (!@include $path . '.php') {
             throw new RouteException('Отсутствует шаблон - ' . $path);
         }
 
