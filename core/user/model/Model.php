@@ -66,6 +66,7 @@ class Model extends BaseModel {
 
                 $filters = $this->get('filters', [
                     'where' => $filtersWhere,
+                    'order' => $filtersOrder,
                     'join' => [
                         'filters f_name' => [
                             'type' => 'INNER',
@@ -87,13 +88,87 @@ class Model extends BaseModel {
                             ],
                             'operand' => ['IN'],
                         ]
-                    ],
+                    ]
                 ]);
 
+                if (!empty($this->showColumns('goods')['discount'])) {
+                    foreach ($goods as $key => $item) {
+                        $this->applyDiscount($goods[$key], $item['discount']);
+                    }
+                }
 
+                if ($filters) {
+                    $filtersIds = implode(',', array_unique(array_column($filters, 'id')));
+                    $goodsIds = implode(',', array_unique(array_column($filters, 'goods_id')));
+                    $query = "SELECT `filters_id` as id, COUNT(goods_id) as count FROM goods_filters
+                                WHERE filters_id IN ($filtersIds) AND goods_id IN ($goodsIds) GROUP BY filters_id";
 
-                $a = 1;
+                    $goodsCountOb = $this->query($query);
 
+                    $goodsCount = [];
+
+                    if ($goodsCountOb) {
+                        foreach ($goodsCountOb as $item) {
+                            $goodsCount[$item['id']] = $item;
+                        }
+                    }
+
+                    $catalogFilters = [];
+
+                    foreach ($filters as $item) {
+                        $parent = [];
+                        $child = [];
+
+                        foreach ($item as $row => $rowValue) {
+                            if (strpos($row, 'f_') === 0) {
+                                $name = preg_replace('/^f_/', '', $row);
+                                $parent[$name] = $rowValue;
+                            } else {
+                                $child[$row] = $rowValue;
+                            }
+                        }
+
+                        if (isset($goodsCount[$child['id']]['count'])) {
+                            $child['count'] = $goodsCount[$child['id']]['count'];
+                        }
+
+                        if (empty($catalogFilters[$parent['id']])) {
+                            $catalogFilters[$parent['id']] = $parent;
+                            $catalogFilters[$parent['id']]['values'] = [];
+                        }
+
+                        $catalogFilters[$parent['id']]['values'][$child['id']] = $child;
+
+                        if (isset($goods[$item['goods_id']])) {
+                            if (empty($goods[$item['goods_id']]['filters'][$parent['id']])) {
+                                $goods[$item['goods_id']]['filters'][$parent['id']] = $parent;
+                                $goods[$item['goods_id']]['filters'][$parent['id']]['values'] = [];
+                            }
+
+                            $goods[$item['goods_id']]['filters'][$parent['id']]['values'][$item['id']] = $child;
+                        }
+                    }
+                }
+            }
+        }
+
+        return $goods ?? null;
+    }
+
+    /**
+     * Формируем скидку
+     *
+     * @param $data
+     * @param $discount
+     * @return void
+     */
+    public function applyDiscount(&$data, $discount)
+    {
+        if ($discount) {
+            if (isset($data['price'])) {
+                $data['old_price'] = $data['price'];
+                $data['discount'] = $discount;
+                $data['price'] = $data['old_price'] - ($data['old_price'] / 100 * $discount);
             }
         }
     }
