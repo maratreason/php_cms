@@ -458,7 +458,7 @@ abstract class BaseAdmin extends BaseController
 
     protected function createAlias($id = false)
     {
-        if ($this->columns['alias']) {
+        if (isset($this->columns['alias'])) {
             if (!isset($_POST['alias'])) {
                 if ($_POST['name']) {
                     $alias_str = $this->clearStr($_POST['name']);
