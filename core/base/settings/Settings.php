@@ -50,18 +50,20 @@ class Settings {
         'filters' => ['name' => 'Фильтры'],
         'articles' => ['name' => 'Статьи'],
         'sales' => ['name' => 'Акции'],
+        'news' => ['name' => 'Новости'],
         'information' => ['name' => 'Информация'],
+        'advantages' => ['name' => 'Преимущества'],
         'socials' => ['name' => 'Социальные сети'],
         'settings' => ['name' => 'Настройки системы']
     ];
 
     private $templateArr = [
-        'text' => ['name', 'phone', 'email', 'alias', 'external_alias', 'subtitle', 'number_of_years'],
+        'text' => ['name', 'phone', 'email', 'alias', 'external_alias', 'subtitle', 'number_of_years', 'discount', 'price'],
         'textarea' => ['content', 'keywords', 'address', 'description', 'short_content'],
-        'radio' => ['visible', 'show_top_menu'],
+        'radio' => ['visible', 'show_top_menu', 'hit', 'sale', 'new', 'hot'],
         'checkboxlist' => ['filters'],
         'select' => ['menu_position', 'parent_id'],
-        'img' => ['img', 'socials', 'img_years'],
+        'img' => ['img', 'socials', 'img_years', 'promo_img'],
         'gallery_img' => ['gallery_img', 'new_gallery_img'],
     ];
 
@@ -87,11 +89,22 @@ class Settings {
         'short_content' => ['Краткое описание'],
         'img_years' => ['Изображение количества лет на рынке'],
         'number_of_years' => ['Количество лет на рынке'],
+        'hit' => ['Хит продаж'],
+        'sale' => ['Акция'],
+        'new' => ['Новинка'],
+        'hot' => ['Горячее предложение'],
+        'discount' => ['Скидка'],
+        'price' => ['Цена'],
+        'promo_img' => ['Изображение для главной страницы'],
     ];
 
     private $radio = [
         'visible' => ['Нет', 'Да', 'default' => 'Да'],
-        'show_top_menu' => ['Нет', 'Да', 'default' => 'Да']
+        'show_top_menu' => ['Нет', 'Да', 'default' => 'Да'],
+        'hit' => ['Нет', 'Да', 'default' => 'Нет'],
+        'sale' => ['Нет', 'Да', 'default' => 'Нет'],
+        'new' => ['Нет', 'Да', 'default' => 'Нет'],
+        'hot' => ['Нет', 'Да', 'default' => 'Нет'],
     ];
 
     private $rootItems = [
@@ -107,13 +120,14 @@ class Settings {
 
     private $blockNeedle = [
         'vg-rows' => [],
-        'vg-img' => ['img', 'new_gallery_img', 'img_years', 'number_of_years'],
+        'vg-img' => ['img', 'new_gallery_img', 'img_years', 'number_of_years', 'promo_img'],
         'vg-content' => ['content', 'keywords']
     ];
 
     private $validation = [
         'name' => ['empty' => true, 'trim' => true],
         'price' => ['int' => true],
+        'discount' => ['int' => true],
         'login' => ['empty' => true, 'trim' => true],
         'password' => ['crypt' => true, 'empty' => true],
         'keywords' => ['count' => 70, 'trim' => true],
