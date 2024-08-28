@@ -168,4 +168,11 @@ class BaseUser extends BaseController
             return $arr[2] ?? null;
         }
     }
+
+    protected function showGoods($data, $parameters, $template = 'goodsItem')
+    {
+        if (!empty($data)) {
+            echo $this->render(TEMPLATE . 'include/' . $template, compact('data', 'parameters'));
+        }
+    }
 }
