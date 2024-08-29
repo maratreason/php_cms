@@ -11,6 +11,7 @@ class BaseUser extends BaseController
     protected $table;
     protected $set;
     protected $menu;
+    protected $breadcrumbs;
 
     /* Проектные свойства */
     protected $socials;
@@ -47,10 +48,12 @@ class BaseUser extends BaseController
 
     protected function outputData()
     {
-        if (!$this->content) {
-            $args = func_get_arg(0);
-            $vars = $args ? $args : [];
+        $args = func_get_arg(0);
+        $vars = $args ? $args : [];
 
+        $this->breadcrumbs = $this->render(TEMPLATE . 'include/breadcrumbs');
+
+        if (!$this->content) {
             $this->content = $this->render($this->template, $vars);
         }
 
@@ -169,7 +172,7 @@ class BaseUser extends BaseController
         }
     }
 
-    protected function showGoods($data, $parameters, $template = 'goodsItem')
+    protected function showGoods($data, $parameters = [], $template = 'goodsItem')
     {
         if (!empty($data)) {
             echo $this->render(TEMPLATE . 'include/' . $template, compact('data', 'parameters'));
