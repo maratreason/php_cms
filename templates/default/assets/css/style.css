@@ -6224,6 +6224,10 @@ input[type='search'], input[type='text'], input[type='email'] {
 	}
 }
 
+.catalog-range-slider {
+	margin-bottom: 20px;
+}
+
 .catalog-section {
 	display: flex;
 	flex-direction: column;
