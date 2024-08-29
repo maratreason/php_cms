@@ -7,72 +7,15 @@ namespace core\base\model;
  */
 abstract class BaseModelMethods
 {
+    protected $postNumber;
+    protected $linksNumber;
+    protected $numberPages;
+    protected $page; // текущая страница
+    protected $totalCount;
+
     protected $sqlFunc = ['NOW()'];
     protected $tableRows;
     protected $union = [];
-
-    // protected function createFields($set, $table = false, $join = false)
-    // {
-    //     if (array_key_exists('fields', $set) && $set['fields'] === null) return '';
-
-    //     $concat_table = '';
-    //     $fields = '';
-    //     $join_structure = false;
-
-    //     if (($join || isset($set['join_structure']) && $set['join_structure']) && $table) {
-    //         $join_structure = true;
-
-    //         $this->showColumns($table);
-    //         // Если есть ячейка 'multi_id_row', то выбираем из таблицы все поля
-    //         if (isset($this->tableRows[$table]['multi_id_row'])) $set['fields'] = [];
-                
-    //     }
-
-    //     $concat_table = $table && !isset($set['no_concat']) ? $table . '.' : '';
-
-    //     if (!isset($set['fields']) || !is_array($set['fields']) || !$set['fields']) {
-    //         if (!$join) {
-    //             $fields = $concat_table . '*,';
-    //         } else {
-    //             foreach ($this->tableRows[$table] as $key => $item) {
-    //                 if ($key !== 'id_row' && $key !== 'multi_id_row') {
-    //                     $fields .= $concat_table . $key . ' as TABLE' . $table . 'TABLE_' . $key . ',';
-    //                 }
-    //             }
-    //         }
-    //     } else {
-    //         $id_field = false;
-
-    //         foreach ($set['fields'] as $field) {
-    //             if ($join_structure && !$id_field && $this->tableRows[$table] === $field) {
-    //                 $id_field = true;
-    //             }
-
-    //             if ($field) {
-    //                 if ($join && $join_structure) {
-    //                     if (preg_match('/^(.+)?\s+as\s+(.+)/i', $field, $matches)) {
-    //                         $fields .= $concat_table . $matches[1] . ' as TABLE' . $table . 'TABLE_' . $matches[2] . ',';
-    //                     } else {
-    //                         $fields .= $concat_table . $field . ' as TABLE' . $table . 'TABLE_' . $field . ',';
-    //                     }
-    //                 } else {
-    //                     $fields .= $concat_table . $field . ',';
-    //                 }
-    //             }
-    //         }
-
-    //         if (!$id_field && $join_structure) {
-    //             if ($join) {
-    //                 $fields .= $concat_table . $this->tableRows[$table]['id_row'] . ' as TABLE' . $table . 'TABLE_' . $this->tableRows[$table]['id_row'] . ',';
-    //             } else {
-    //                 $fields .= $concat_table . $this->tableRows[$table]['id_row'] . ',';
-    //             }
-    //         }
-    //     }
-
-    //     return $fields;
-
-    // }
 
     protected function createFields($set, $table = false, $join = false)
     {
@@ -549,6 +492,11 @@ abstract class BaseModelMethods
         }
 
         return $join_arr;
+    }
+
+    protected function getTotalCount($table, $where)
+    {
+        return $this->query("SELECT COUNT(*) as count FROM $table $where")[0]['count'];
     }
 
     protected function createTableAlias($table)
