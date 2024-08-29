@@ -83,6 +83,7 @@ class Model extends BaseModel {
                                 'goods_id' => $this->get('goods', [
                                     'fields' => [$this->showColumns('goods')['id_row']],
                                     'where' => $set['where'] ?? null,
+                                    'operand' => $set['operand'] ?? null,
                                     'return_query' => true
                                 ])
                             ],
