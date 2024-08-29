@@ -20,12 +20,12 @@ class RouteController extends BaseController
             $this->routes = Settings::get('routes');
 
             if (!$this->routes) throw new RouteException('Отсутствуют маршруты в базовых настройках', 1);
-            // Обрезаем $address_str с первого символа. Чтобы im.my не попал в $url;
+            // Обрезаем $address_str с первого символа. Чтобы im.examin не попал в $url;
             // $url = explode('/', substr($address_str, strlen(PATH)));
             $url = preg_split('/(\/)|(\?.*)/', $address_str, 0, PREG_SPLIT_NO_EMPTY);
             // админка
             // Если $url[0] равно алиасу, ни буквой больше, ни буквой меньше
-            if ($url[0] && $url[0] === $this->routes['admin']['alias']) {
+            if (isset($url[0]) && $url[0] === $this->routes['admin']['alias']) {
                 array_shift($url);
 
                 // Плагин
