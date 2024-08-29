@@ -97,23 +97,37 @@
                         </div>
                     </aside>
 
-
-
                     <section class="catalog-section catalog-section__four">
                         <div class="catalog-section-top">
                             <div class="catalog-section-top-items">
-                                <div class="catalog-section-top-items__title catalog-section-top-items__unit">
-                                    Сортировать по:
-                                </div>
-                                <div class="catalog-section-top-items__unit catalog-section-top-items__toggle">
-                                    Названию
-                                </div>
-                                <div class="catalog-section-top-items__unit catalog-section-top-items__toggle">
-                                    Цене
-                                </div>
-                                <div class="catalog-section-top-items__unit catalog-section-top-items__toggle">
-                                    Показывать по:
-                                </div>
+                                <?php if (!empty($order)): ?>
+                                    <div class="catalog-section-top-items__title catalog-section-top-items__unit">
+                                        Сортировать по:
+                                    </div>
+
+                                    <?php $GET = $_GET ?? []; ?>
+
+                                    <?php foreach ($order as $name => $item): ?>
+                                        <a
+                                            href="<?=$this->alias('catalog/' . ($this->parameters['alias'] ?? ''), array_merge($GET, ['order' => $item]))?>"
+                                            class="catalog-section-top-items__unit catalog-section-top-items__toggle <?=preg_match('/_desc$/', $item) ? 'order_desc' : '' ?>"
+                                        >
+                                            <?=$name?>
+                                        </a>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                                
+                                <?php if (!empty($quantities)): ?>
+                                    <div class="catalog-section-top-items__unit catalog-section-top-items__toggle show-by-quantities">
+                                        Показывать по: <span><?=$_SESSION['quantities'] ?? ''?></span>
+                                        <div class="qtyItems">
+                                            <?php foreach ($quantities as $item): ?>
+                                                <a href="#" style="display: block;"><?=$item?></a>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                                
                             </div>
                         </div>
 
