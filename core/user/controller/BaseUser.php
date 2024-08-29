@@ -107,8 +107,8 @@ class BaseUser extends BaseController
                     if (is_array($item)) {
                         $key .= '[]';
 
-                        foreach ($item as $value) {
-                            $str .= $key . '=' . $value;
+                        foreach ($item as $k => $v) {
+                            $str .= $key . '=' . $v . (!empty($item[$k + 1]) ? '&' : '');
                         }
                     } else {
                         $str .= $key . '=' . $item;
