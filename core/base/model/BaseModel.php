@@ -116,7 +116,7 @@ abstract class BaseModel extends BaseModelMethods
     {
         $fields = $this->createFields($set, $table);
         $order = $this->createOrder($set, $table);
-        $paginationWhere = $this->createWhere($set, $table);
+        $paginationWhere = $where = $this->createWhere($set, $table);
 
         if (empty($where)) {
             $new_where = true;
@@ -160,10 +160,10 @@ abstract class BaseModel extends BaseModelMethods
      */
     protected function createPagination($set, $table, $where, &$limit)
     {
-        if (!empty($set['patination'])) {
-            $this->postNumber = isset($set['pagination']['qty']) ? (int) $set['pagination']['qty'] : QTY;
-            $this->linksNumber = isset($set['pagination']['qty_links']) ? (int) $set['pagination']['qty_links'] : QTY_LINKS;
-            $this->page = !is_array($set['pagination']) ? (int) $set['pagination'] : (int)($set['pagination']['page'] ?? 1);
+        if (!empty($set['pagination'])) {
+            $this->postNumber = isset($set['pagination']['qty']) ? (int)$set['pagination']['qty'] : QTY;
+            $this->linksNumber = isset($set['pagination']['qty_links']) ? (int)$set['pagination']['qty_links'] : QTY_LINKS;
+            $this->page = !is_array($set['pagination']) ? (int)$set['pagination'] : (int)($set['pagination']['page'] ?? 1);
 
             if ($this->page > 0 && $this->postNumber > 0) {
                 $this->totalCount = $this->getTotalCount($table, $where);
