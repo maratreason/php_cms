@@ -213,6 +213,10 @@ $(function () {
                     ajax: "catalog_quantities"
                 }
             });
+
+            setTimeout(() => {
+                location.href = location.pathname;
+            }, 100);
         }
     });
 
