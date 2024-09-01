@@ -813,7 +813,7 @@ abstract class BaseAdmin extends BaseController
                         'where' => [$targetRow => $_POST[$this->columns['id_row']]]
                     ]);
                     // если что-то пришло в POST
-                    if ($_POST[$tables[$otherKey]]) {
+                    if (isset($_POST[$tables[$otherKey]])) {
                         $insertArr = [];
                         $i = 0;
 
