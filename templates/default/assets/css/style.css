@@ -6563,6 +6563,11 @@ input[type='search'], input[type='text'], input[type='email'] {
 	background-color: #335252
 }
 
+
+.pagination-current {
+	color: #ccc;	
+}
+
 .catalog-section__line{
 	margin-left: 0;
 }
