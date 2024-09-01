@@ -18,6 +18,10 @@ class Model extends BaseModel {
             $set['where'] = [];
         }
 
+        if (empty($set['pagination'])) {
+            $set['pagination'] = [];
+        }
+
         if (empty($set['order'])) {
             $set['order'] = [];
 
