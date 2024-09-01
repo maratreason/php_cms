@@ -51,7 +51,9 @@ class CatalogController extends BaseUser
             ],
         ], $catalogFilters, $catalogPrices);
 
-        return compact('data', 'goods', 'catalogFilters', 'catalogPrices', 'order', 'quantities');
+        $pages = $this->model->getPagination();
+
+        return compact('data', 'goods', 'catalogFilters', 'catalogPrices', 'order', 'quantities', 'pages');
     }
 
     protected function checkFilters(&$where)
