@@ -19,6 +19,9 @@ const END_SLASH = '/';
 const QTY = 8;
 const QTY_LINKS = 3;
 
+// Храним данные корзины: 'cookie' | 'session'
+const CART = 'cookie';
+
 const ADMIN_CSS_JS = [
     'styles' => ['css/main.css'],
     'scripts' => [
