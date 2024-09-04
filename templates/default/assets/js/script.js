@@ -260,4 +260,73 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     })();
+
+    changeQty();
+
+    addToCart();
 });
+
+function addToCart() {
+    document.querySelectorAll("[data-addToCart]").forEach(item => {
+        item.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            let cart = {};
+            cart.id = +item.getAttribute("data-addToCart");
+
+            if (cart.id && !isNaN(cart.id)) {
+                let productContainer = item.closest("[data-productContainer]") || document;
+                cart.qty = 1;
+
+                let qtyBlock = productContainer.querySelector("[data-quantity]");
+                if (qtyBlock) {
+                    cart.qty = +qtyBlock.innerHTML || 1;
+                }
+
+                cart.ajax = "add_to_cart";
+
+                $.ajax({
+                    url: "/",
+                    data: cart,
+                    error: (res) => {
+                        console.error(res);
+                    },
+                    success: (res) => {
+                        console.log(res);
+                    }
+                });
+            }
+        });
+    });
+}
+
+// counter
+function changeQty() {
+    document.querySelectorAll("[data-quantityPlus], [data-quantityMinus]").forEach(item => {
+        item.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            let productContainer = item.closest("[data-productContainer]") || document;
+
+            let qtyEl = productContainer.querySelector("[data-quantity]");
+            if (qtyEl) {
+                let qty = +qtyEl.innerHTML || 1;
+                
+                if (item.hasAttribute("data-quantityPlus")) {
+                    qty++;
+                } else {
+                    qty = qty <= 1 ? 1 : --qty;
+                }
+
+                qtyEl.innerHTML = qty;
+
+                let addToCart = productContainer.querySelector("[data-addToCart]");
+                if (addToCart) {
+                    if (addToCart && addToCart.hasAttribute("data-toCartAdded")) {
+                        addToCart.dispatchEvent(new Event("click"));
+                    }
+                }
+            }
+        });
+    });
+}
