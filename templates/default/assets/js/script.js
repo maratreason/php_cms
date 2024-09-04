@@ -221,3 +221,43 @@ $(function () {
     });
 
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    let moreBtn = document.querySelector(".card-main-info__description .more-button");
+    if (moreBtn) {
+        moreBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            document.querySelectorAll(".card-tabs__toggle.tabs__toggle")[1].dispatchEvent(new Event("click"));
+
+            window.scrollTo({
+                top: document.querySelector(".card-tabs").getBoundingClientRect().top + scrollY,
+                behavior: "smooth",
+            });
+        });
+    }
+
+    (function() {
+        let start = 0;
+
+        document.querySelectorAll(".card-main-gallery-thumb__slide").forEach(el => {
+            el.addEventListener("click", () => {
+                let elCoords = el.getBoundingClientRect();
+                let parentCoors = el.parentElement.parentElement.getBoundingClientRect();
+                let elY = scrollY + elCoords.y;
+                let parentY = scrollY + parentCoors.y;
+                let margin = parseFloat(getComputedStyle(el)['marginBottom']);
+                let top = Math.ceil(elCoords.height + margin);
+
+                if (el.nextElementSibling && Math.ceil(elY - parentY + top) >= parentCoors.height) {
+                    start -= top;
+                } else if (el.previousElementSibling &&  elY <= parentY) {
+                    start += top;
+                }
+
+                el.parentElement.style.transition = '0.3s';
+                el.parentElement.style.transform = `translate3d(0px, ${start}px, 0px)`;
+            });
+        });
+    })();
+});
