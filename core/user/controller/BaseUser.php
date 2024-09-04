@@ -263,4 +263,65 @@ HEREDOC;
         }
 
     }
+
+    /**
+     * Добавление товара в корзину
+     *
+     * @param $id
+     * @param $qty
+     * @return void
+     */
+    protected function addToCart($id, $qty)
+    {
+        $id = $this->clearNum($id);
+        $qty = $this->clearNum($qty) ?: 1;
+
+        if (!$id) {
+            return ['success' => 0, 'message' => 'Отсутствует идентификатор товара'];
+        }
+
+        $data = $this->model->get('goods', [
+            'where' => ['id' => $id],
+            'limit' => 1
+        ]);
+
+        if (!$data) {
+            return ['success' => 0, 'message' => 'Отсутствует товар для добавления в корзину'];
+        }
+
+        $cart = &$this->getCart();
+        $cart[$id] = $qty;
+
+        $this->updateCart();
+    }
+
+    protected function updateCart()
+    {
+        $cart = &$this->getCart();
+
+        if (defined(CART) && strtolower(CART) === 'cookie') {
+            setcookie('cart', json_encode($cart), time() * 3600 * 24 * 4, PATH);
+        }
+
+        return true;
+    }
+
+    protected function &getCart()
+    {
+        if (!defined('CART') || strtolower(CART) !== 'cookie') {
+            if (!isset($_SESSION['cart'])) {
+                $_SESSION['cart'] = [];
+            }
+
+            return $_SESSION['cart'];
+        } else {
+            if (!isset($_COOKIE['cart'])) {
+                $_COOKIE['cart'] = [];
+            } else {
+                $_COOKIE['cart'] = is_string($_COOKIE['cart']) ? json_decode($_COOKIE['cart'], true) : $_COOKIE['cart'];
+            }
+
+            return $_COOKIE['cart'];
+        }
+    }
 }
