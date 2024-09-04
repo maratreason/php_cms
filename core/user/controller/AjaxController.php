@@ -20,10 +20,19 @@ class AjaxController extends BaseUser
                     $qty = $this->clearNum($this->ajaxData['qty'] ?? 0);
                     $qty && $_SESSION['quantities'] = $qty;
                     break;
+                
+                case 'add_to_cart':
+                    return $this->_addToCart();
+                    break;
             }
         }
 
         return json_encode(['success' => '0', 'message' => 'No ajax variable']);
+    }
+
+    protected function _addToCart()
+    {
+        return $this->addToCart($this->ajaxData['id'] ?? null, $this->ajaxData['qty'] || 1);
     }
 
 }
