@@ -292,7 +292,27 @@ function addToCart() {
                         console.error(res);
                     },
                     success: (res) => {
-                        console.log(res);
+                        try {
+                            res = JSON.parse(res);
+
+                            if (typeof res.current === "undefined") {
+                                throw new Error("");
+                            }
+
+                            item.setAttribute("data-toCartAdded", true);
+
+                            ["data-totalQty", "data-totalSum", "data-totalOldSum"].forEach(attr => {
+                                let cartAttr = attr.replace(/data-/, "").replace(/([^A-Z])([A-Z])/g, "$1_$2").toLowerCase();
+
+                                document.querySelectorAll(`[${attr}]`).forEach(el => {
+                                    if (typeof res[cartAttr] !== "undefined") {
+                                        el.innerHTML = res[cartAttr] + " руб.";
+                                    }
+                                });
+                            });
+                        } catch (err) {
+                            alert("Ошибка добавления в корзину");
+                        }
                     }
                 });
             }
