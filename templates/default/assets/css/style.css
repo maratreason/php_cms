@@ -5221,7 +5221,8 @@ input[type='search'], input[type='text'], input[type='email'] {
 	width: 32px;
 	height: 32px;
 	align-items: center;
-	justify-content: center
+	justify-content: center;
+	cursor: pointer;
 }
 
 @media screen and (max-width: 1680px) {
@@ -7226,16 +7227,19 @@ input[type='search'], input[type='text'], input[type='email'] {
 }
 
 .basket-btn{
-	display: block;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 280px;
 	text-transform: uppercase;
-    min-height: 50px;
-    background: #D4DDE1;
-    color: #2D3033;
-    font-size: 18px;
-    font-weight: 700;
-    transition: .3s;
-    cursor: pointer;
+	min-height: 50px;
+	background: #D4DDE1;
+	color: #2D3033;
+	text-decoration: none;
+	font-size: 18px;
+	font-weight: 700;
+	transition: .3s;
+	cursor: pointer;
 }
 
 .basket-btn:last-child{
@@ -7552,4 +7556,20 @@ input[type='search'], input[type='text'], input[type='email'] {
 .qtyItems a {
 	color: #000;
 	text-decoration: none;
+}
+
+.cart-btn-wrap [data-totalQty] {
+	position: absolute;
+	right: calc(50% - 15px);
+	bottom: calc(50% - 15px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 15px;
+	height: 15px;
+	border: 1px solid #fff;
+	background: #fff;
+	border-radius: 50%;
+	font-size: 10px;
+	color: #000;
 }
