@@ -30,7 +30,7 @@ class CatalogController extends BaseUser
         $where = ['visible' => 1];
 
         if ($data) {
-            $where = ['parent_id' => $data['id']];
+            $where['parent_id'] = $data['id'];
         } else {
             $data['name'] = 'Каталог';
         }
