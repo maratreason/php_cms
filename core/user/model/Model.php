@@ -37,6 +37,13 @@ class Model extends BaseModel {
         $goods = $this->get('goods', $set);
 
         if ($goods) {
+
+            if (!empty($this->showColumns('goods')['discount'])) {
+                foreach ($goods as $key => $item) {
+                    $this->applyDiscount($goods[$key], $item['discount']);
+                }
+            }
+
             unset($set['join'], $set['join_structure'], $set['pagination']);
             // Получаем цены
             if ($catalogPrices !== false && !empty($this->showColumns('goods')['price'])) {
@@ -48,6 +55,7 @@ class Model extends BaseModel {
                     $catalogPrices = $catalogPrices[0];
                 }
             }
+
             // Получаем фильтры
             if ($catalogFilters !== false && in_array('filters', $this->showTables())) {
                 $parentFiltersFields = [];
@@ -95,12 +103,6 @@ class Model extends BaseModel {
                         ]
                     ]
                 ]);
-
-                if (!empty($this->showColumns('goods')['discount'])) {
-                    foreach ($goods as $key => $item) {
-                        $this->applyDiscount($goods[$key], $item['discount']);
-                    }
-                }
 
                 if ($filters) {
                     $filtersIds = implode(',', array_unique(array_column($filters, 'id')));
