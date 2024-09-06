@@ -23,35 +23,31 @@
         <div class="container">
             <div class="card-main__wrapper">
                 <div class="card-main-gallery-thumb">
-
-                    <?php if (!empty($data['gallery_img'])):?>
-                        <div class="card-main-gallery-thumb__container swiper-container">
-                            <div class="swiper-wrapper">
-                                
+                    
+                    <div class="card-main-gallery-thumb__container swiper-container">
+                        <div class="swiper-wrapper">
+                            
+                            <div class="card-main-gallery-thumb__slide swiper-slide">
+                                <picture class="card-main-gallery-thumb__img">
+                                    <img src="<?=$this->img($data['img'])?>" alt="">
+                                </picture>
+                            </div>
+                            <?php if (!empty($data['gallery_img'])):?>
+                            <?php foreach (json_decode($data['gallery_img'], true) as $item): ?>
                                 <div class="card-main-gallery-thumb__slide swiper-slide">
                                     <picture class="card-main-gallery-thumb__img">
-                                        <img src="<?=$this->img($data['img'])?>" alt="">
+                                        <img src="<?=$this->img($item)?>" alt="">
                                     </picture>
                                 </div>
-
-                                <?php foreach (json_decode($data['gallery_img'], true) as $item): ?>
-                                    <div class="card-main-gallery-thumb__slide swiper-slide">
-                                        <picture class="card-main-gallery-thumb__img">
-                                            <img src="<?=$this->img($item)?>" alt="">
-                                        </picture>
-                                    </div>
-                                <?php endforeach; ?>
-
-                            </div>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
-                    <?php endif; ?>
+                    </div>
                 </div>
 
                 <div class="card-main-gallery-slider">
                     <div class="card-main-gallery-slider__container swiper-container">
                         <div class="swiper-wrapper">
-                            
-                            
 
                             <div class="card-main-gallery-slider__slide swiper-slide">
                                 <a href="assets/img/card/item1.png" class="card-main-gallery-slider__img" data-fancybox>
@@ -129,14 +125,19 @@
                                 </span>
                                 <span class="card-main-info-size__body">
                                     <span class="card-main-info-size__control button card-main-info-size__control_minus js-counterDecrement" data-quantityMinus></span>
-                                    <span class="card-main-info-size__count js-counterShow" data-quantity>1</span>
+                                    <span class="card-main-info-size__count js-counterShow" data-quantity><?=$this->cart['goods'][$data['id']]['qty'] ?? 1?></span>
                                     <span class="card-main-info-size__control button card-main-info-size__control_plus js-counterIncrement" data-quantityPlus></span>
                                 </span>
                             </label>
                         </div>
                         <div class="card-main-info__buttons">
-                            <a href="#" class="card-main-info__button button-basket button-blue button-big button" data-addToCart=<?=$data['id']?>>
-                                <svg><use xlink:href="/assets/img/icons.svg#basket"></use></svg>
+                            <a
+                                href="#"
+                                class="card-main-info__button button-basket button-blue button-big button"
+                                data-addToCart=<?=$data['id']?>
+                                <?=!empty($this->cart['goods'][$data['id']]) ? 'data-toCartAdded' : ''?>
+                            >
+                                <svg><use xlink:href="<?=PATH . TEMPLATE?>assets/img/icons.svg#basket"></use></svg>
                                 <span>в корзину</span>
                             </a>
                             <a href="#" class="card-main-info__button button-darkcyan button-big button" data-addToCart=<?=$data['id']?> data-onClick>
