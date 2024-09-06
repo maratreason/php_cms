@@ -35,7 +35,6 @@
                     <section class="catalog-section catalog-section__line">
 
                         <div class="basket-top">
-
                             <div class="total-basket-price">
                                 Итого:
                                 <?php if (!empty($this->cart['total_old_sum'])):?>
@@ -45,7 +44,7 @@
                             </div>
                             <div class="basket-btns">
                                 <button class="basket-btn">Перейти к оформлению</button>
-                                <a href="<?=$this->alias(['cart' => 'clearAll'])?>" class="basket-btn">Очистить корзину</a>
+                                <a href="<?=$this->alias(['cart' => 'remove'])?>" class="basket-btn">Очистить корзину</a>
                             </div>
                         </div>
 
@@ -66,9 +65,9 @@
                                                     Цена: <span class="card-item_old-price"><?=$item['old_price']?> руб.</span> <span class="card-item_new-price"><?=$item['price']?> руб.</span>
                                                 </div>
                                             </div>
-                                            <button class="card-item__btn">
+                                            <a href="<?=$this->alias(['cart' => 'remove', 'id' => $item['id']])?>" class="card-item__btn">
                                                 Удалить
-                                            </button>
+                                            </a>
                                             <span class="card-main-info-size__body">
                                                 <span class="card-main-info-size__control card-main-info-size__control_minus js-counterDecrement" data-quantityMinus></span>
                                                 <span class="card-main-info-size__count js-counterShow" data-quantity><?=$this->cart['goods'][$item['id']]['qty']?></span>
@@ -82,11 +81,11 @@
                                                 </div>
                                             <?php endif; ?>
 
-                                            <a  style="display: none;"
-                                                href="#"
-                                                class="card-main-info__button button-basket button-blue button-big button"
-                                                data-addToCart=<?=$item['id']?>
-                                                data-toCartAdded
+                                            <a style="display: none;"
+                                               href="#"
+                                               class="card-main-info__button button-basket button-blue button-big button"
+                                               data-addToCart=<?=$item['id']?>
+                                               data-toCartAdded
                                             >
                                                 
                                             </a>
@@ -103,38 +102,59 @@
 
         <section class="order-registration">
             <div class="container">
-                <form class="order-registration-form">
-                    <div class="order-registration-payment">
-                        <div class="order-registration-titel">Оплата</div>
-                        <div class="order-registration-radio">
-                            <label class="order-registration-radio-item">
-                                <input class="order-registration-rad-inp" type="radio" name="payment" checked>
-                                <div class="order-registration-radio-item-descr">Оплатить заказ наличными при получении</div>
-                            </label>
-                            <label class="order-registration-radio-item">
-                                <input class="order-registration-rad-inp" type="radio" name="payment">
-                                <div class="order-registration-radio-item-descr">Оплатить сейчас картой Visa/Mastercard</div>
-                            </label>
+                <form class="order-registration-form" method="post" action="<?=$this->alias('orders')?>">
+                    <?php if (!empty($this->payments)): ?>
+                        <div class="order-registration-payment">
+                            <div class="order-registration-titel">Оплата</div>
+                            <div class="order-registration-radio">
+                                <?php foreach ($this->payments as $key => $item): ?>
+                                    <label class="order-registration-radio-item">
+                                        <input class="order-registration-rad-inp" type="radio" name="payments_id" <?=!$key ? 'checked' : ''?>>
+                                        <div class="order-registration-radio-item-descr"><?=$item['name']?></div>
+                                    </label>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
-                    </div>
-                    <div class="order-registration-delivery">
-                        <div class="order-registration-titel">Доставка</div>
-                        <div class="order-registration-radio">
-                            <label class="order-registration-radio-item">
-                                <input class="order-registration-rad-inp" type="radio" name="deliver" checked>
-                                <div class="order-registration-radio-item-descr"><span>Магазин: </span>г. Калуга, ул. Московская 300</div>
-                            </label>
-                            <label class="order-registration-radio-item">
-                                <input class="order-registration-rad-inp" type="radio" name="deliver">
-                                <div class="order-registration-radio-item-descr"><span>Диллеры: </span></div>
-                            </label>
+                    <?php endif; ?>
+                    
+                    <?php if (!empty($this->delivery)): ?>
+                        <div class="order-registration-delivery">
+                            <div class="order-registration-titel">Доставка</div>
+                            <div class="order-registration-radio">
+                                <?php foreach ($this->delivery as $key => $item): ?>
+                                    <label class="order-registration-radio-item">
+                                        <input class="order-registration-rad-inp" type="radio" name="delivery_id" <?=!$key ? 'checked' : ''?>>
+                                        <div class="order-registration-radio-item-descr"><?=$item['name']?></div>
+                                    </label>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
+                    
                     <div class="amount-pay-wrapp">
                         Сумма к оплате:
                         <span class="amount-pay" data-totalSum><?=$this->cart['total_sum']?> руб.</span>
                     </div>
-                    <input class="execute-order_btn" type="submit" name="" value="Оформить заказ">
+                    <input class="execute-order_btn" type="button" value="Оформить заказ" data-popup="order-popup">
+                    
+                    <div class="order-popup">
+                        <div class="order-popup__inner">
+                            <h2>Оформление заказа</h2>
+                            <input type="text" name="name" required placeholder="Ваше имя" value="<?=$this->setFormValues('name', 'userData')?>">
+                            <input type="tel" name="phone" required placeholder="Телефон" value="<?=$this->setFormValues('phone', 'userData')?>">
+                            <input type="email" name="email" required placeholder="Email" value="<?=$this->setFormValues('email', 'userData')?>">
+                            <textarea name="address" rows="5" placeholder="Тескт сообщения">
+                                <?=$this->setFormValues('address', 'userData')?>
+                            </textarea>
+                            <div class="amount-pay-wrapp">
+                                Сумма к оплате:
+                                <span class="amount-pay" data-totalSum><?=$this->cart['total_sum']?> руб.</span>
+                            </div>
+                            <div class="send-order">
+                                <input class="execute-order_btn" type="submit" value="Оформить заказ">
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </section>
