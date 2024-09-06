@@ -264,6 +264,25 @@ document.addEventListener("DOMContentLoaded", () => {
     changeQty();
 
     addToCart();
+
+    // Popup
+    document.querySelectorAll("[data-popup]").forEach(item => {
+        if (item.getAttribute("data-popup")) {
+            let popupElement = document.querySelector(`.${item.getAttribute("data-popup")}`);
+
+            if (popupElement) {
+                item.addEventListener("click", () => {
+                    popupElement.classList.add("open");
+                });
+
+                popupElement.addEventListener("click", (e) => {
+                    if (e.target === popupElement) {
+                        popupElement.classList.remove("open");
+                    }
+                });
+            }
+        }
+    });
 });
 
 function addToCart() {
@@ -306,7 +325,7 @@ function addToCart() {
 
                                 document.querySelectorAll(`[${attr}]`).forEach(el => {
                                     if (typeof res[cartAttr] !== "undefined") {
-                                        el.innerHTML = res[cartAttr] + " руб.";
+                                        el.innerHTML = res[cartAttr] + (attr === "data-totalQty" ? "" : " руб.");
                                     }
                                 });
                             });
@@ -349,4 +368,71 @@ function changeQty() {
             }
         });
     });
+}
+
+// Делаем маску для телефона
+document.querySelectorAll('input[type="tel"]').forEach(item => phoneValidate(item));
+
+function phoneValidate(item) {
+    let countriesOptions = {
+        // +7(843)111-22-33
+        "+7": {
+            limit: 16,
+            firstDigits: '87',
+            formatChars: {
+                2: '(',
+                6: ')',
+                10: '-',
+                13: '-'
+            }
+        }
+    }
+
+    item.addEventListener("input", (e) => {
+        if (e.inputType === "deleteContentBackward" || e.inputType === "deleteContentForward") {
+            return false;
+        }
+
+        item.value = item.value.replace(/\D/g, '');
+
+        if (item.value) {
+            for (let code in countriesOptions) {
+                if (countriesOptions.hasOwnProperty(code) && countriesOptions[code].firstDigits) {
+                    let regExp = new RegExp(`^[${countriesOptions[code].firstDigits}]`);
+
+                    if (regExp.test(item.value)) {
+                        item.value = item.value.replace(regExp, code);
+                        break;
+                    }
+                }
+            }
+
+            if (!/^\+/.test(item.value)) {
+                item.value = "+" + item.value;
+            }
+
+            for (let code in countriesOptions) {
+                if (countriesOptions.hasOwnProperty(code)) {
+                    let regExp = new RegExp(code.replace(/\+/g, "\\+"), "g");
+
+                    if (regExp.test(item.value)) {
+                        for (let i in countriesOptions[code].formatChars) {
+                            let j = +i;
+
+                            if (item.value[j] && item.value[j] !== countriesOptions[code].formatChars[i]) {
+                                item.value = item.value.substring(0, j) + countriesOptions[code].formatChars[i] + item.value.substring(j);
+                            }
+                        }
+
+                        if (item.value[countriesOptions[code].limit]) {
+                            item.value = item.value.substring(0, countriesOptions[code].limit);
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    item.dispatchEvent(new Event("input"));
+    item.addEventListener("change", () => phoneValidate(item));
 }
