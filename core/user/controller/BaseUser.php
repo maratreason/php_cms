@@ -12,6 +12,7 @@ class BaseUser extends BaseController
     protected $set;
     protected $menu;
     protected $breadcrumbs;
+    protected $userData = [];
     protected $cart = [];
 
     /* Проектные свойства */
@@ -270,6 +271,21 @@ HEREDOC;
     }
 
     /**
+     * Undocumented function
+     *
+     * @param $key ключ который ищем
+     * @param $property свойства, в которых ищем значения
+     * @param array $arr массив, если это не сессия
+     * @return void
+     */
+    protected function setFormValues($key, $property = null, $arr = [])
+    {
+        !$arr && $arr = $_SESSION['res'] ?? [];
+
+        return $arr[$key] ?? ($this->$property[$key] ?? '');
+    }
+
+    /**
      * Добавление товара в корзину
      *
      * @param $id
@@ -404,13 +420,27 @@ HEREDOC;
     {
         unset($_COOKIE['cart'], $_SESSION['cart']);
 
-        if (defined(CART) && strtolower(CART) === 'cookie') {
+        if (defined('CART') && strtolower(CART) === 'cookie') {
             setcookie('cart', '', 1, PATH);
         }
 
         $this->cart = [];
 
         return null;
+    }
+
+    protected function deleteCartData($id)
+    {
+        $id = $this->clearNum($id);
+
+        if ($id) {
+            $cart = &$this->getCart();
+
+            unset($cart[$id]);
+
+            $this->updateCart();
+            $this->getCartData(true);
+        }
     }
 
     protected function &getCart()
