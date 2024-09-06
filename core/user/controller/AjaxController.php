@@ -32,7 +32,7 @@ class AjaxController extends BaseUser
 
     protected function _addToCart()
     {
-        return $this->addToCart($this->ajaxData['id'] ?? null, $this->ajaxData['qty'] || 1);
+        return $this->addToCart($this->ajaxData['id'] ?? null, $this->ajaxData['qty'] ?? 1);
     }
 
 }
