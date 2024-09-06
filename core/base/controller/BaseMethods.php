@@ -85,6 +85,17 @@ trait BaseMethods
                 PREG_SPLIT_NO_EMPTY
             )[0];
     }
+    
+    protected function addSessionData($arr = [])
+    {
+        if (empty($arr)) $arr = $_POST;
+
+        foreach ($arr as $key => $item) {
+            $_SESSION['res'][$key] = $item;
+        }
+
+        $this->redirect();
+    }
 
     /**
      * Форматирование даты для блока новостей
