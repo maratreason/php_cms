@@ -550,7 +550,7 @@ input[type='search'], input[type='text'], input[type='email'] {
 	padding: 15px 86px 0 0;
 	height: 153px;
 	display: flex;
-	z-index: 9999
+	z-index: 9;
 }
 
 @media screen and (max-width: 1600px) {
@@ -2274,6 +2274,7 @@ input[type='search'], input[type='text'], input[type='email'] {
 	text-align: center;
 	cursor: pointer;
 	text-transform: uppercase;
+	text-decoration: none;
 }
 
 .card-item__line .card-item__btn{
@@ -4709,7 +4710,7 @@ input[type='search'], input[type='text'], input[type='email'] {
 	left: auto;
 	display: flex;
 	width: 100%;
-	z-index: 700
+	z-index: 7;
 }
 
 .card-main {
@@ -7572,4 +7573,44 @@ input[type='search'], input[type='text'], input[type='email'] {
 	border-radius: 50%;
 	font-size: 10px;
 	color: #000;
+}
+
+/* Popup */
+.order-popup {
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.6);
+}
+
+.order-popup.open {
+	display: flex;
+}
+
+.order-popup__inner {
+	margin: 20px;
+	flex-basis: 600px;
+	padding: 30px 20px;
+	background: #fff;
+	max-height: 100vh;
+	overflow-y: auto;
+}
+
+.order-popup__inner > input,
+.order-popup__inner > textarea {
+	width: 100%;
+	margin-bottom: 15px;
+	padding: 3px 5px;
+	border: 1px solid #000;
+}
+
+.send-order {
+	display: flex;
+	justify-content: center;
 }
