@@ -30,7 +30,7 @@ class BaseUser extends BaseController
             'limit' => 1
         ]);
 
-        if (!$this->isAjax() && !$this->isPost()) {
+        if (!$this->isAjax()) {
             $this->getCartData();
         }
 
