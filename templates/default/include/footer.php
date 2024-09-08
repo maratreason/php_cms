@@ -61,6 +61,12 @@
 
   <?php $this->getScripts();?>
 
+  <?php if (!empty($_SESSION['res']['answer'])): ?>
+    <div class="wq-message__wrap"><?=$_SESSION['res']['answer']?></div>
+  <?php endif; ?>
+
+  <?php unset($_SESSION['res']); ?>
+
 </body>
 
 </html>
