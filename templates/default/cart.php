@@ -109,7 +109,7 @@
                             <div class="order-registration-radio">
                                 <?php foreach ($this->payments as $key => $item): ?>
                                     <label class="order-registration-radio-item">
-                                        <input class="order-registration-rad-inp" type="radio" name="payments_id" <?=!$key ? 'checked' : ''?>>
+                                        <input class="order-registration-rad-inp" type="radio" value="<?=$item['id']?>" name="payments_id" <?=!$key ? 'checked' : ''?>>
                                         <div class="order-registration-radio-item-descr"><?=$item['name']?></div>
                                     </label>
                                 <?php endforeach; ?>
@@ -123,7 +123,7 @@
                             <div class="order-registration-radio">
                                 <?php foreach ($this->delivery as $key => $item): ?>
                                     <label class="order-registration-radio-item">
-                                        <input class="order-registration-rad-inp" type="radio" name="delivery_id" <?=!$key ? 'checked' : ''?>>
+                                        <input class="order-registration-rad-inp" type="radio" value="<?=$item['id']?>" name="delivery_id" <?=!$key ? 'checked' : ''?>>
                                         <div class="order-registration-radio-item-descr"><?=$item['name']?></div>
                                     </label>
                                 <?php endforeach; ?>
@@ -140,9 +140,9 @@
                     <div class="order-popup">
                         <div class="order-popup__inner">
                             <h2>Оформление заказа</h2>
-                            <input type="text" name="name" required placeholder="Ваше имя" value="<?=$this->setFormValues('name', 'userData')?>">
-                            <input type="tel" name="phone" required placeholder="Телефон" value="<?=$this->setFormValues('phone', 'userData')?>">
-                            <input type="email" name="email" required placeholder="Email" value="<?=$this->setFormValues('email', 'userData')?>">
+                            <input type="text" name="name" placeholder="Ваше имя" value="<?=$this->setFormValues('name', 'userData')?>">
+                            <input type="tel" name="phone" placeholder="Телефон" value="<?=$this->setFormValues('phone', 'userData')?>">
+                            <input type="email" name="email" placeholder="Email" value="<?=$this->setFormValues('email', 'userData')?>">
                             <textarea name="address" rows="5" placeholder="Тескт сообщения">
                                 <?=$this->setFormValues('address', 'userData')?>
                             </textarea>
