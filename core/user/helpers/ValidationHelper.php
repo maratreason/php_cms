@@ -9,7 +9,7 @@ trait ValidationHelper
         $value = $this->clearStr($value);
 
         if (empty($value)) {
-            $this->sendError('Не заполнено поле ' . $answer);
+            $this->sendError('Не заполнено поле "' . $answer . '"');
         }
 
         return $value;
@@ -19,7 +19,7 @@ trait ValidationHelper
     {
         $value = preg_replace('/\D/', '', $value);
 
-        !$value && $this->sendError('Некорректное поле ' . $answer);
+        !$value && $this->sendError('Некорректное поле "' . $answer . '"');
 
         return $value;
     }
@@ -40,7 +40,7 @@ trait ValidationHelper
         $value = $this->clearStr($value);
 
         if (!preg_match('/^[\w\-\.]+@[\w\-]+\.[\w\-]+/', $value)) {
-            $this->sendError('Некорректный формат поля ' . $answer);
+            $this->sendError('Некорректный формат поля "' . $answer . '"');
         }
 
         return $value;
