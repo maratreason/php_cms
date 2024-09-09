@@ -60,6 +60,7 @@ const USER_CSS_JS = [
         'assets/js/app.js',
         'assets/js/script.js',
         'assets/js/freeHost.js',
+        'assets/js/showMessage.js',
     ]
 ];
 
