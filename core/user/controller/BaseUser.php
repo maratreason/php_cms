@@ -23,6 +23,8 @@ class BaseUser extends BaseController
     {
         $this->init();
 
+        $this->checkAuth();
+
         !$this->model && $this->model = Model::instance();
 
         $this->set = $this->model->get('settings', [
