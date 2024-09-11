@@ -17,8 +17,8 @@ class OrdersController extends BaseUser
         parent::inputData();
 
         if ($this->isPost()) {
-            $this->delivery = $this->model->get('delivery');
-            $this->payments = $this->model->get('payments');
+            $this->delivery = $this->model->get('delivery', ['join_structure' => true]);
+            $this->payments = $this->model->get('payments', ['join_structure' => true]);
 
             $this->order();
         }
@@ -137,7 +137,7 @@ class OrdersController extends BaseUser
             UserModel::instance()->checkUser($order['visitors_id']);
         }
 
-        if (!$this->setOrdersGoods($order)) {
+        if (!($goods = $this->setOrdersGoods($order))) {
             $this->sendError('Ошибка сохранения товаров заказа. Обратитесь к администрации сайта');
         }
 
@@ -145,23 +145,29 @@ class OrdersController extends BaseUser
 
         $this->sendSuccess('Спасибо за заказ. В ближайшее время наши менеджеры свяжутся с Вами для уточнения деталей');
 
-        $this->sendOrderEmail(['order' => $order, 'visitor' => $visitor]);
+        $order['delivery'] = $this->delivery[$order['delivery_id']]['name'] ?? ''; 
+        $order['payments'] = $this->payments[$order['payments_id']]['name'] ?? ''; 
+
+        $this->sendOrderEmail(['order' => $order, 'visitor' => $visitor, 'goods' => $goods]);
         $this->clearCart();
         $this->redirect();
     }
 
-    protected function setOrdersGoods(array $order): bool
+    protected function setOrdersGoods(array $order): ?array
     {
         if (in_array('orders_goods', $this->model->showTables())) {
             $ordersGoods = [];
+            $preparedGoods = [];
 
             foreach ($this->cart['goods'] as $key => $item) {
                 $ordersGoods[$key]['orders_id'] = $order['id'];
+                $preparedGoods[$key] = $item;
+                $preparedGoods[$key]['total_sum'] = $item['qty'] * $item['price'];
 
                 foreach ($item as $field => $value) {
                     if (!empty($this->model->showColumns('orders_goods')[$field])) {
                         if ($this->model->showColumns('orders_goods')['id_row'] === $field) {
-                            if (!empty($this->model->showColumns('orders_goods')['goods_id'])) {
+                            if ($this->model->showColumns('orders_goods')['goods_id']) {
                                 $ordersGoods[$key]['goods_id'] = $value;
                             }
                         } else {
@@ -171,16 +177,60 @@ class OrdersController extends BaseUser
                 }
             }
 
-            return $this->model->add('orders_goods', [
+            if ($this->model->add('orders_goods', [
                 'fields' => $ordersGoods
-            ]);
+            ])) {
+                return $preparedGoods;
+            }
         }
 
-        return false;
+        return null;
     }
 
     protected function sendOrderEmail(array $orderData)
     {
+        $dir = TEMPLATE . 'include/orderTemplates/';
+        $templatesArr = [];
 
+        if (is_dir($dir)) {
+            $list = scandir($dir);
+
+            foreach ($orderData as $name => $item) {
+                if (($file = preg_grep('/^' . $name . '\./', $list))) {
+                    $file = array_shift($file);
+                    $template = file_get_contents($dir . $file, FILE_USE_INCLUDE_PATH);
+
+                    if (!is_numeric(key($item))) {
+                        $templatesArr[] = $this->renderOrderMailTemplate($template, $item);
+                    } else {
+                        if ($common = preg_grep('/' . $name . 'Header\./', $list)) {
+                            $common = array_shift($common);
+                            $templatesArr[] = $this->renderOrderMailTemplate(file_get_contents($dir . $common), []);
+                        }
+
+                        foreach ($item as $value) {
+                            $templatesArr[] = $this->renderOrderMailTemplate($template, $value);
+                        }
+
+                        if ($common = preg_grep('/' . $name . 'Footer\./', $list)) {
+                            $common = array_shift($common);
+                            $templatesArr[] = $this->renderOrderMailTemplate(file_get_contents($dir . $common), []);
+                        }
+                    }
+
+                }
+            }
+        }
+
+        $a = 1;
+    }
+
+    protected function renderOrderMailTemplate(string $template, array $data): string
+    {
+        foreach ($data as $key => $item) {
+            $template = preg_replace('/#' . $key . '#/i', $item, $template);
+        }
+
+        return $template;
     }
 }
